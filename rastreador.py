@@ -22,5 +22,32 @@ def main():
         else:
             print("Opcion invalida, intentalo de nuevo")
             
+habitos = {}
 
-main()
+def añadir_habito():
+    nombre = input("Introduce tu nuevo hábito: ")
+    habitos[nombre] = "Pendiente"
+    print("Hábito añadido correctamente")
+
+def actualizar_habito():
+    nombre = input("Introduce el hábito que quieres marcar como completado")
+    if nombre in habitos:
+        habitos[nombre] = "Completado"
+        print("Felicidades, has marcado un hábito")
+    else:
+        print("No estas haciendos siguimiento de ese hábito")
+        nuevo = input("¿Quieres añadirlo como nuevo hábito? Si | No")
+        if nuevo.lower() == "si":
+            habitos[nombre] = "Pendiente"
+        if nuevo.lower() == "no":
+            print("De acuerdo... volviendo al menú principal")
+        #Bucle para que vuelva al inicio??
+
+añadir_habito()
+print(habitos)
+print("-----")
+
+actualizar_habito()
+print(habitos)
+
+#main()
