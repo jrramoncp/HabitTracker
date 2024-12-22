@@ -84,10 +84,10 @@ def ver_progreso():
     count = 0
     if len(habitos) == 0:
         #Si no hay habitos registrados mensaje de error
-        print("No tienes hábitos registras aun. ¡Añade uno para empezar!")
+        print("No tienes hábitos registras aún. ¡Añade uno para empezar!")
     else:
         #Imprime el progreso actual
-        print("Este es tu progeso de hoy")
+        print("Este es tu progreso de hoy")
         for clave, valor in habitos.items(): 
             count += 1
             print(f"{count}.  {clave.capitalize()}: {valor}")
