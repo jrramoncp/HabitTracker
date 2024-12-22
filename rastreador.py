@@ -13,44 +13,55 @@ def main():
         mostrar_menu()
         opcion = input("Introduce una opción: ")
     
-        if int(opcion) == 1:
+        if opcion == "1":
             anadir_habito()
-        elif int(opcion) == 2: 
+        elif opcion == "2": 
             actualizar_habito()
-        elif int(opcion) == 3:
+        elif opcion == "3":
             ver_progreso()
-        elif int(opcion) == 4: 
-            print("Elimnar habito (pendiente)")
-        elif int(opcion) == 5:
+        elif opcion == "4": 
+            eliminar_habito()
+        elif opcion == "5":
             print("Saliendo del programa")
             break
         else:
+            print("---------")
             print("Opcion invalida, intentalo de nuevo")
+            print("---------")
             
 habitos = {} #diccionario de habitos, (habito : estado)
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo
+    print("---------")
     nombre = input("Introduce tu nuevo hábito: ")
-    habitos[nombre] = "Pendiente"
-    print("Hábito añadido correctamente")
+    habitos[nombre.lower()] = "Pendiente"
+    print("---------")
+    print(f"Hábito {nombre} añadido correctamente y marcado como 'Pendiente'")
+    print("---------")
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
+    print("---------")
     nombre = input("Introduce el hábito que quieres marcar como completado: ")
-    if nombre in habitos:
+    if nombre.lower() in habitos:
         #Si el nombre coincide con alguno del diccionario, cambio su valor a "Completado"
         habitos[nombre] = "Completado"
-        print("Felicidades, has marcado un hábito")
+        print("---------")
+        print(f"Felicidades, {nombre} marcado como completado")
+        print("---------")
     else:
         #Si el nombre introducio no coincide, imprime mensaje de error
+        print("---------")
         print("No estas haciendos siguimiento de ese hábito")
+        print("---------")
         while True:
             nuevo = input("¿Quieres añadirlo como nuevo hábito? Si | No ")
             #Da la posibilidad de añadir un nuevo habito al diccionario
             if nuevo.lower() == "si":
                 #Si el usuario indica que si, añade el nuevo habito al diccionario
                 habitos[nombre] = "Pendiente"
+                print(f"Habito {nombre} añadido y marcado como 'Pendiente'")
                 break
             if nuevo.lower() == "no":
                 print("De acuerdo... volviendo al menú principal")
@@ -64,8 +75,38 @@ def ver_progreso():
     #Funcion para ver el progreso actual de habitos
     print("-------------")
     print("Este es tu progeso de hoy")
-    print(habitos)
+    print({clave.capitalize() : valor for clave, valor in habitos.items()})
     print("-------------")
+
+def eliminar_habito():
+    #Funcion para eliminar seguimiento de un habito
+    print("---------")
+    nombre = input("Introduce el nombre del hábito que quieres eliminar ")
+    if nombre.lower() in habitos: 
+        while True:
+            print("---------")
+            print("Atención perderas tu progreso y esta opción es irreversible") #Advertencia
+            confirmacion = input("Vuelve a introducir el hábito para confirmar o cancelar para volver al menú principal ") #Confirmacion de que se quiere eliminar el hábito
+            if confirmacion.lower() == nombre.lower():
+                #Elimina habito y vuelve a inicio
+                del habitos[nombre.lower()]
+                print("---------")
+                print(f"Habito {nombre.capitalize()} eliminado")
+                print("---------")
+                break
+            if confirmacion.lower() == "cancelar":
+                #Vuelve a inicio
+                break
+            else: 
+                #Si no es ninguna de las dos opciones, mensaje de error
+                print("---------")
+                print("Respuesta no válida, vuelve a intentarlo")
+                print("---------")
+    else: 
+        print("---------")
+        print("ERROR! No estas haciendo seguimiento de ese hábito")
+        print("---------")
+        
 
 
 
