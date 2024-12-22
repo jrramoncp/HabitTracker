@@ -1,11 +1,15 @@
 def mostrar_menu():
     #Menu principal
-    print("Bienvenido al Rastreador de Habitos")
-    print("1. Añadir un nuevo hábito")
-    print("2. Marcar hábito como completado")
-    print("3. Ver progreso diario")
-    print("4. Eliminar hábito")
+    from datetime import datetime
+    print("======== Easy Habit Tracker ========")
+    print(f"Hoy es {datetime.now().strftime('%d/%m/%Y')}")
+    print("---------")
+    print("1. Añadir un nuevo hábito\n")
+    print("2. Marcar hábito como completado\n")
+    print("3. Ver progreso diario\n")
+    print("4. Eliminar hábito\n")
     print("5. Salir")
+    print("---------")
 
 def main():
     #Bucle Principal interfaz CLI
