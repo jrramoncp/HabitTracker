@@ -4,7 +4,8 @@ def mostrar_menu():
     print("1. Añadir un nuevo hábito")
     print("2. Marcar hábito como completado")
     print("3. Ver progreso diario")
-    print("4. Salir")
+    print("4. Eliminar hábito")
+    print("5. Salir")
 
 def main():
     #Bucle Principal interfaz CLI
@@ -19,6 +20,8 @@ def main():
         elif int(opcion) == 3:
             ver_progreso()
         elif int(opcion) == 4: 
+            print("Elimnar habito (pendiente)")
+        elif int(opcion) == 5:
             print("Saliendo del programa")
             break
         else:
@@ -51,11 +54,14 @@ def actualizar_habito():
                 break
             if nuevo.lower() == "no":
                 print("De acuerdo... volviendo al menú principal")
+                #Si el usuario indica que no, salimos al menu principal
                 break
             else: 
                 print("Respuesta no válida, vuelve a intentarlo")
+                #Nos aseguramos que la respuesta sea válida
 
 def ver_progreso():
+    #Funcion para ver el progreso actual de habitos
     print("-------------")
     print("Este es tu progeso de hoy")
     print(habitos)
