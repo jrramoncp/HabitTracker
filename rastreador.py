@@ -35,10 +35,17 @@ def anadir_habito():
     #Funcion para añadir un hábito nuevo
     print("---------")
     nombre = input("Introduce tu nuevo hábito: ")
-    habitos[nombre.lower()] = "Pendiente"
-    print("---------")
-    print(f"Hábito {nombre} añadido correctamente y marcado como 'Pendiente'")
-    print("---------")
+    if nombre.lower() in habitos: 
+        #Si ya estamos haciendo seguimiento de ese hábito
+        print("---------")
+        print("Ya estas haciendo seguimiento de ese hábito.")
+        print("---------")
+    else: 
+        #Si no, lo añadimos al diccionario
+        habitos[nombre.lower()] = "Pendiente"
+        print("---------")
+        print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
+        print("---------")
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
@@ -48,7 +55,7 @@ def actualizar_habito():
         #Si el nombre coincide con alguno del diccionario, cambio su valor a "Completado"
         habitos[nombre] = "Completado"
         print("---------")
-        print(f"Felicidades, {nombre} marcado como completado")
+        print(f"{nombre.capitalize()} marcado como completado. ¡Sigue así!")
         print("---------")
     else:
         #Si el nombre introducio no coincide, imprime mensaje de error
@@ -74,8 +81,16 @@ def actualizar_habito():
 def ver_progreso():
     #Funcion para ver el progreso actual de habitos
     print("-------------")
-    print("Este es tu progeso de hoy")
-    print({clave.capitalize() : valor for clave, valor in habitos.items()})
+    count = 0
+    if len(habitos) == 0:
+        #Si no hay habitos registrados mensaje de error
+        print("No tienes hábitos registras aun. ¡Añade uno para empezar!")
+    else:
+        #Imprime el progreso actual
+        print("Este es tu progeso de hoy")
+        for clave, valor in habitos.items(): 
+            count += 1
+            print(f"{count}.  {clave.capitalize()}: {valor}")
     print("-------------")
 
 def eliminar_habito():
