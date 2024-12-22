@@ -1,6 +1,8 @@
+from datetime import datetime
+from historial import cargar_historial, imprimir_historial, actualizar_historial, guardar_historial
+
 def mostrar_menu():
     #Menu principal
-    from datetime import datetime
     print("======== Easy Habit Tracker ========")
     print(f"Hoy es {datetime.now().strftime('%d/%m/%Y')}")
     print("---------")
