@@ -17,7 +17,7 @@ def main():
         elif int(opcion) == 2: 
             actualizar_habito()
         elif int(opcion) == 3:
-            print("Has elegido ver tu progreso con un hábito (pendiente)")
+            ver_progreso()
         elif int(opcion) == 4: 
             print("Saliendo del programa")
             break
@@ -55,8 +55,11 @@ def actualizar_habito():
             else: 
                 print("Respuesta no válida, vuelve a intentarlo")
 
-
-
+def ver_progreso():
+    print("-------------")
+    print("Este es tu progeso de hoy")
+    print(habitos)
+    print("-------------")
 
 
 
