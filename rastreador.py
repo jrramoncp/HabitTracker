@@ -49,19 +49,23 @@ def main():
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo
-    print("---------")
-    nombre = input("Introduce tu nuevo hábito: ")
-    if nombre.lower() in habitos: 
-        #Si ya estamos haciendo seguimiento de ese hábito
+    nombre = ""
+    while nombre == "":
         print("---------")
-        print("Ya estas haciendo seguimiento de ese hábito.")
-        print("---------")
-    else: 
-        #Si no, lo añadimos al diccionario
-        habitos[nombre.lower()] = "Pendiente"
-        print("---------")
-        print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
-        print("---------")
+        nombre = input("Introduce tu nuevo hábito: ")
+        if nombre.lower() in habitos: 
+            #Si ya estamos haciendo seguimiento de ese hábito
+            print("---------")
+            print("Ya estas haciendo seguimiento de ese hábito.")
+            print("---------")
+        elif nombre.lower() == "":
+            print("¡CUIDADO!, no has escrito nada")
+        else: 
+            #Si no, lo añadimos al diccionario
+            habitos[nombre.lower()] = "Pendiente"
+            print("---------")
+            print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
+            print("---------")
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
