@@ -1,5 +1,5 @@
 from datetime import datetime
-from historial import cargar_historial, imprimir_historial, actualizar_historial, guardar_historial
+from historial import guardar_habito, leer_historial
 
 def mostrar_menu():
     #Menu principal
@@ -35,7 +35,7 @@ def main():
             print("Opcion invalida, intentalo de nuevo")
             print("---------")
             
-habitos = {} #diccionario de habitos, (habito : estado)
+habitos = leer_historial() #diccionario de habitos, (habito : estado)
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo
@@ -52,6 +52,7 @@ def anadir_habito():
         print("---------")
         print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
         print("---------")
+        guardar_habito(habitos)
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
