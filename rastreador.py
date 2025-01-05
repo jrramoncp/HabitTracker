@@ -1,5 +1,13 @@
 from datetime import datetime
-from historial import guardar_habito, leer_historial
+from historial import guardar_habitos, leer_historial
+
+habitos = leer_historial()
+
+# try:
+#     habitos = leer_historial() #diccionario de habitos, (habito : estado), cargado del archivo habitos.json
+# except FileNotFoundError:
+#     pass
+
 
 def mostrar_menu():
     #Menu principal
@@ -29,13 +37,13 @@ def main():
             eliminar_habito()
         elif opcion == "5":
             print("Saliendo del programa")
+            guardar_habitos(habitos) #Al salir guardamos los datos
             break
         else:
             print("---------")
             print("Opcion invalida, intentalo de nuevo")
             print("---------")
             
-habitos = leer_historial() #diccionario de habitos, (habito : estado)
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo
@@ -52,7 +60,6 @@ def anadir_habito():
         print("---------")
         print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
         print("---------")
-        guardar_habito(habitos)
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
