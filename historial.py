@@ -3,6 +3,7 @@ from datetime import datetime
 
 fecha = datetime.now().strftime('%d/%m/%Y')
 
+
 #ACTUALIZAR
 def guardar_habitos(dic):
     #FUNCION PARA GUARDAR HABITOS EN UN FICHERO JSON, SI NO EXISTE CREA EL FICHERO

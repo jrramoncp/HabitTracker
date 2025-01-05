@@ -5,6 +5,7 @@ habitos = leer_habitos()
 
 fecha = datetime.now().strftime('%d/%m/%Y')
 
+
 historial = {
     "fecha" : fecha,
     "habitos" : habitos
