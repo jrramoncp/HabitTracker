@@ -1,18 +1,19 @@
 from datetime import datetime
-from historial import guardar_habitos, leer_historial
+from historial import guardar_habitos, leer_habitos, comprobar_fecha
 
-habitos = leer_historial()
+habitos = leer_habitos()
 
-# try:
-#     habitos = leer_historial() #diccionario de habitos, (habito : estado), cargado del archivo habitos.json
-# except FileNotFoundError:
-#     pass
+fecha = datetime.now().strftime('%d/%m/%Y')
 
+historial = {
+    "fecha" : fecha,
+    "habitos" : habitos
+}
 
 def mostrar_menu():
     #Menu principal
     print("======== Easy Habit Tracker ========")
-    print(f"Hoy es {datetime.now().strftime('%d/%m/%Y')}")
+    print(f"Hoy es {fecha}")
     print("---------")
     print("1. Añadir un nuevo hábito\n")
     print("2. Marcar hábito como completado\n")
@@ -37,7 +38,7 @@ def main():
             eliminar_habito()
         elif opcion == "5":
             print("Saliendo del programa")
-            guardar_habitos(habitos) #Al salir guardamos los datos
+            guardar_habitos(historial) #Al salir guardamos los datos
             break
         else:
             print("---------")
@@ -96,13 +97,13 @@ def ver_progreso():
     #Funcion para ver el progreso actual de habitos
     print("-------------")
     count = 0
-    if len(habitos) == 0:
+    if len(historial["habitos"]) == 0:
         #Si no hay habitos registrados mensaje de error
         print("No tienes hábitos registras aún. ¡Añade uno para empezar!")
     else:
         #Imprime el progreso actual
         print("Este es tu progreso de hoy")
-        for clave, valor in habitos.items(): 
+        for clave, valor in historial["habitos"].items(): 
             count += 1
             print(f"{count}.  {clave.capitalize()}: {valor}")
     print("-------------")
@@ -135,8 +136,8 @@ def eliminar_habito():
         print("---------")
         print("ERROR! No estas haciendo seguimiento de ese hábito")
         print("---------")
-        
-
 
 
 main()
+
+
