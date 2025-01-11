@@ -123,31 +123,39 @@ def eliminar_habito():
     #Funcion para eliminar seguimiento de un habito
     print("---------")
     nombre = ""
-    nombre = input("Introduce el nombre del hábito que quieres eliminar: ")
-    if nombre.lower() in habitos: 
-        while True:
+    while nombre == "":
+        nombre = input("Introduce el nombre del hábito que quieres eliminar o 'cancelar' para volver al menú principal: ")
+        if nombre.lower() == "cancelar":
+            #Si el usuario escribe atras vuelve al menú principal
+            break
+        elif nombre.lower() in habitos: 
+            while True:
+                print("---------")
+                print("Atención perderas tu progreso y esta opción es irreversible") #Advertencia
+                confirmacion = input("Vuelve a introducir el hábito para confirmar o cancelar para volver al menú principal ") #Confirmacion de que se quiere eliminar el hábito
+                if confirmacion.lower() == nombre.lower():
+                    #Elimina habito y vuelve a inicio
+                    del habitos[nombre.lower()]
+                    print("---------")
+                    print(f"Habito {nombre.capitalize()} eliminado")
+                    print("---------")
+                    break
+                if confirmacion.lower() == "cancelar":
+                    #Vuelve a inicio
+                    break
+                else: 
+                    #Si no es ninguna de las dos opciones, mensaje de error
+                    print("---------")
+                    print("Respuesta no válida, vuelve a intentarlo")
+                    print("---------")
+        elif nombre.lower() == "":
+            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
+            print("¡CUIDADO!, no has escrito nada")
+        else: 
             print("---------")
-            print("Atención perderas tu progreso y esta opción es irreversible") #Advertencia
-            confirmacion = input("Vuelve a introducir el hábito para confirmar o cancelar para volver al menú principal ") #Confirmacion de que se quiere eliminar el hábito
-            if confirmacion.lower() == nombre.lower():
-                #Elimina habito y vuelve a inicio
-                del habitos[nombre.lower()]
-                print("---------")
-                print(f"Habito {nombre.capitalize()} eliminado")
-                print("---------")
-                break
-            if confirmacion.lower() == "cancelar":
-                #Vuelve a inicio
-                break
-            else: 
-                #Si no es ninguna de las dos opciones, mensaje de error
-                print("---------")
-                print("Respuesta no válida, vuelve a intentarlo")
-                print("---------")
-    else: 
-        print("---------")
-        print("ERROR! No estas haciendo seguimiento de ese hábito")
-        print("---------")
+            print("ERROR! No estas haciendo seguimiento de ese hábito o has escrito mal 'cancelar'")
+            print("Volviendo al menú principal...")
+            print("---------")
 
 
 main()
