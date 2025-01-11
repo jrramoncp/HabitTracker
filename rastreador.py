@@ -59,6 +59,7 @@ def anadir_habito():
             print("Ya estas haciendo seguimiento de ese hábito.")
             print("---------")
         elif nombre.lower() == "":
+            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
             print("¡CUIDADO!, no has escrito nada")
         else: 
             #Si no, lo añadimos al diccionario
@@ -70,33 +71,38 @@ def anadir_habito():
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
     print("---------")
-    nombre = input("Introduce el hábito que quieres marcar como completado: ")
-    if nombre.lower() in habitos:
-        #Si el nombre coincide con alguno del diccionario, cambio su valor a "Completado"
-        habitos[nombre] = "Completado"
-        print("---------")
-        print(f"{nombre.capitalize()} marcado como completado. ¡Sigue así!")
-        print("---------")
-    else:
-        #Si el nombre introducio no coincide, imprime mensaje de error
-        print("---------")
-        print("No estas haciendos siguimiento de ese hábito")
-        print("---------")
-        while True:
-            nuevo = input("¿Quieres añadirlo como nuevo hábito? Si | No ")
-            #Da la posibilidad de añadir un nuevo habito al diccionario
-            if nuevo.lower() == "si":
-                #Si el usuario indica que si, añade el nuevo habito al diccionario
-                habitos[nombre] = "Pendiente"
-                print(f"Habito {nombre} añadido y marcado como 'Pendiente'")
-                break
-            if nuevo.lower() == "no":
-                print("De acuerdo... volviendo al menú principal")
-                #Si el usuario indica que no, salimos al menu principal
-                break
-            else: 
-                print("Respuesta no válida, vuelve a intentarlo")
-                #Nos aseguramos que la respuesta sea válida
+    nombre = ""
+    while nombre == "":
+        nombre = input("Introduce el hábito que quieres marcar como completado: ")
+        if nombre.lower() in habitos:
+            #Si el nombre coincide con alguno del diccionario, cambio su valor a "Completado"
+            habitos[nombre] = "Completado"
+            print("---------")
+            print(f"{nombre.capitalize()} marcado como completado. ¡Sigue así!")
+            print("---------")
+        elif nombre.lower() == "":
+            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
+            print("¡CUIDADO!, no has escrito nada")
+        else:
+            #Si el nombre introducio no coincide, imprime mensaje de error
+            print("---------")
+            print("No estas haciendos siguimiento de ese hábito")
+            print("---------")
+            while True:
+                nuevo = input("¿Quieres añadirlo como nuevo hábito? Si | No ")
+                #Da la posibilidad de añadir un nuevo habito al diccionario
+                if nuevo.lower() == "si":
+                    #Si el usuario indica que si, añade el nuevo habito al diccionario
+                    habitos[nombre] = "Pendiente"
+                    print(f"Habito {nombre} añadido y marcado como 'Pendiente'")
+                    break
+                if nuevo.lower() == "no":
+                    print("De acuerdo... volviendo al menú principal")
+                    #Si el usuario indica que no, salimos al menu principal
+                    break
+                else: 
+                    print("Respuesta no válida, vuelve a intentarlo")
+                    #Nos aseguramos que la respuesta sea válida
 
 def ver_progreso():
     #Funcion para ver el progreso actual de habitos
@@ -116,7 +122,8 @@ def ver_progreso():
 def eliminar_habito():
     #Funcion para eliminar seguimiento de un habito
     print("---------")
-    nombre = input("Introduce el nombre del hábito que quieres eliminar ")
+    nombre = ""
+    nombre = input("Introduce el nombre del hábito que quieres eliminar: ")
     if nombre.lower() in habitos: 
         while True:
             print("---------")
