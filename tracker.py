@@ -1,5 +1,7 @@
+### FUNCIONES PRINCIPALES DE LA APP, PARA EL RASTREO DE HÁBITOS
+
 from datetime import datetime
-from historial import guardar_habitos, leer_habitos, comprobar_fecha
+from data_manager import guardar_habitos, leer_habitos, comprobar_fecha
 
 habitos = leer_habitos()
 

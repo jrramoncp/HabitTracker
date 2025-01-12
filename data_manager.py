@@ -1,3 +1,5 @@
+### DESDE AQUÍ MANEJAMOS LA INFORMACIÓN, LECTURA / ESCRITURA DE LOS DATOS EN EL FICHERO JSON"
+
 import json
 from datetime import datetime
 
