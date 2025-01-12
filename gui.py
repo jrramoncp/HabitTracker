@@ -3,7 +3,7 @@
 
 import tkinter as tk
 
-ventana = tk.Tk()
-ventana.geometry("600x300")
-ventana.mainloop()
+app = tk.Tk()
+app.geometry("600x300")
 
+app.mainloop()
