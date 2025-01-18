@@ -1,8 +1,12 @@
-### FUNCIONES PRINCIPALES DE LA APP, PARA EL RASTREO DE HÁBITOS
+### RASTREADOR DE HÁBITOS ###
+
+# --- SECCIÓN: Importación de librerías y módulos ---
 
 from datetime import datetime
 from data_manager import guardar_habitos, leer_habitos, comprobar_fecha
+import tkinter as tk
 
+# --- SECCIÓN: Lógica del Rastreador de Hábitos ---
 habitos = leer_habitos()
 
 fecha = datetime.now().strftime('%d/%m/%Y')
@@ -48,7 +52,6 @@ def main():
             print("Opcion invalida, intentalo de nuevo")
             print("---------")
             
-
 def anadir_habito():
     #Funcion para añadir un hábito nuevo
     nombre = ""
@@ -159,7 +162,17 @@ def eliminar_habito():
             print("Volviendo al menú principal...")
             print("---------")
 
+# --- SECCIÓN: GUI ---
 
-main()
+#Ventana Princpal
+root = tk.Tk()
+root.title("Habit Tracker")
+root.geometry("600x400")
+
+#Display
+display = tk.Label()
+
+# --- SECCIÓN: Ejecución ---
+root.mainloop()
 
 
