@@ -139,7 +139,12 @@ root.configure(bg="#2C3E50")
 #Variables
 habito = tk.StringVar()
 #Display
-title = tk.Label(root, text=f"EASY HABIT TRACKER\n{fecha}", font=("Arial", 18, "bold"), fg="#3498DB", bg="#2C3E50").pack(padx=30, pady=30)
+title = tk.Label(root, 
+                 text=f"EASY HABIT TRACKER\n{fecha}", 
+                 font=("Arial", 18, "bold"), 
+                 fg="#3498DB", 
+                 bg="#2C3E50"
+                 ).pack(padx=30, pady=30)
 
 #Entrada de texto
 entrada = tk.Entry(root, 
@@ -157,7 +162,7 @@ boton1 = tk.Button(root,
                    text="Añadir hábito", 
                    command=anadir_habito, 
                    bg="#E74C3C", 
-                   fg="#ECF0F1"
+                   fg="#ECF0F1",
                    ).pack(pady=5)
 boton2 = tk.Button(root, 
                    text="Marcar completado", 
