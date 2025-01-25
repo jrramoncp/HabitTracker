@@ -163,15 +163,28 @@ def eliminar_habito():
             print("---------")
 
 # --- SECCIÓN: GUI ---
+#Variables
+
+
 
 #Ventana Princpal
 root = tk.Tk()
 root.title("Habit Tracker")
-root.geometry("600x400")
-
+root.geometry("300x300")
+root.configure(bg="cyan")
+texto = tk.StringVar()
 #Display
-display = tk.Label()
+title = tk.Label(root, text=f"HABIT TRACKER\n{fecha}", font=("Arial", 18, "bold"), fg="white", bg="cyan").pack()
 
+#Entrada de texto
+entrada = tk.Entry(root).pack()
+
+#Botones
+boton1 = tk.Button(root, text="Añadir hábito").pack(side="top")
+boton2 = tk.Button(root, text="Actualizar hábito").pack(side="top")
+boton3 = tk.Button(root, text="Ver progreso").pack(side="top")
+boton4 = tk.Button(root, text="Eliminar hábito").pack(side="top")
+boton5 = tk.Button(root, text="Salir").pack(side="top")
 # --- SECCIÓN: Ejecución ---
 root.mainloop()
 
