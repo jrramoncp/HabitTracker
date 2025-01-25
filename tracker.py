@@ -91,18 +91,29 @@ def actualizar_habito():
 
 def ver_progreso():
     #Funcion para ver el progreso actual de habitos
-    print("-------------")
     count = 0
     if len(historial["habitos"]) == 0:
         #Si no hay habitos registrados mensaje de error
-        print("No tienes hábitos registras aún. ¡Añade uno para empezar!")
+        messagebox.showerror("Error","No tienes hábitos registras aún. ¡Añade uno para empezar!")
     else:
-        #Imprime el progreso actual
-        print("Este es tu progreso de hoy")
+        #Crea una ventana para mostrar el progreso actual
+        ventana = tk.Tk()
+        ventana.title("Progreso")
+        
+        ventana.configure(bg="#2C3E50")
+        tk.Label(ventana, 
+                 text=f"Progreso de hoy {fecha}", 
+                 font=("Arial", 16, "bold"), 
+                 fg="#ECF0F1", 
+                 bg="#2C3E50"
+                 ).pack(pady=15, padx=30) 
         for clave, valor in historial["habitos"].items(): 
             count += 1
-            print(f"{count}.  {clave.capitalize()}: {valor}")
-    print("-------------")
+            tk.Label(ventana, 
+                     text=f"{count}.  {clave.capitalize()}: {valor}", 
+                     font=("Arial", 12, "bold"), 
+                     bg="#2C3E50", 
+                     fg="#3498DB").pack(pady=5)
 
 def eliminar_habito():
     #Funcion para eliminar seguimiento de un habito
@@ -122,23 +133,57 @@ def eliminar_habito():
 # --- SECCIÓN: GUI ---
 #Ventana Princpal
 root = tk.Tk()
-root.title("Habit Tracker")
-root.geometry("300x300")
-root.configure(bg="cyan")
+root.title("Easy Habit Tracker")
+root.geometry("400x350")
+root.configure(bg="#2C3E50")
 #Variables
 habito = tk.StringVar()
 #Display
-title = tk.Label(root, text=f"HABIT TRACKER\n{fecha}", font=("Arial", 18, "bold"), fg="white", bg="cyan").pack()
+title = tk.Label(root, text=f"EASY HABIT TRACKER\n{fecha}", font=("Arial", 18, "bold"), fg="#3498DB", bg="#2C3E50").pack(padx=30, pady=30)
 
 #Entrada de texto
-entrada = tk.Entry(root, textvariable=habito).pack()
+entrada = tk.Entry(root, 
+                   textvariable=habito, 
+                   bg="#2C2F33",
+                   fg="#FFFFFF", 
+                   insertbackground="#7289DA",  
+                   highlightthickness=2,
+                   highlightbackground="#7289DA",
+                   highlightcolor="#99AAB5"
+                   ).pack(pady=5)
 
 #Botones
-boton1 = tk.Button(root, text="Añadir hábito", command=anadir_habito).pack(side="top")
-boton2 = tk.Button(root, text="Actualizar hábito", command=actualizar_habito).pack(side="top")
-boton3 = tk.Button(root, text="Ver progreso").pack(side="top")
-boton4 = tk.Button(root, text="Eliminar hábito", command=eliminar_habito).pack(side="top")
-boton5 = tk.Button(root, text="Salir").pack(side="top")
+boton1 = tk.Button(root, 
+                   text="Añadir hábito", 
+                   command=anadir_habito, 
+                   bg="#E74C3C", 
+                   fg="#ECF0F1"
+                   ).pack(pady=5)
+boton2 = tk.Button(root, 
+                   text="Marcar completado", 
+                   command=actualizar_habito, 
+                   bg="#E74C3C", 
+                   fg="#ECF0F1"
+                   ).pack(pady=5)
+boton3 = tk.Button(root, 
+                   text="Eliminar hábito", 
+                   command=eliminar_habito, 
+                   bg="#E74C3C", 
+                   fg="#ECF0F1").pack(pady=5)
+
+boton4 = tk.Button(root, 
+                   text="Ver progreso", 
+                   command=ver_progreso, 
+                   bg="#E74C3C", 
+                   bd=0, 
+                   fg="#ECF0F1").pack(pady=5)
+
+
+boton5 = tk.Button(root, 
+                   text="Salir",
+                   bg="#2E4053",
+                   fg="#FF6F61"
+                   ).pack(pady=5)
 
 # --- SECCIÓN: Ejecución ---
 root.mainloop()
