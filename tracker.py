@@ -17,50 +17,19 @@ historial = {
     "habitos" : habitos
 }
 
-def mostrar_menu():
-    #Menu principal
-    print("======== Easy Habit Tracker ========")
-    print(f"Hoy es {fecha}")
-    print("---------")
-    print("1. Añadir un nuevo hábito\n")
-    print("2. Marcar hábito como completado\n")
-    print("3. Ver progreso diario\n")
-    print("4. Eliminar hábito\n")
-    print("5. Salir")
-    print("---------")
-
-def main():
-    #Bucle Principal interfaz CLI
-    while True:
-        mostrar_menu()
-        opcion = input("Introduce una opción: ")
-    
-        if opcion == "1":
-            anadir_habito()
-        elif opcion == "2": 
-            actualizar_habito()
-        elif opcion == "3":
-            ver_progreso()
-        elif opcion == "4": 
-            eliminar_habito()
-        elif opcion == "5":
-            print("Saliendo del programa")
-            guardar_habitos(historial) #Al salir guardamos los datos
-            break
-        else:
-            print("---------")
-            print("Opcion invalida, intentalo de nuevo")
-            print("---------")
-            
 def anadir_habito():
+    #Funcion para añadir un hábito nuevo, utiliza la entrada de texto, para añadir una nueva clave a nuestro diccionario, que por defecto, tendra el valor "Pendiente"
+
     valor = habito.get().strip()  # Obtener el valor del input y eliminar espacios extra
     
     if not valor: 
         # Si la cadena está vacía, mostramos un mensaje de error
         messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+
     elif valor.lower() in habitos:
         # Si el hábito ya existe, mostramos una advertencia
         messagebox.showwarning("Aviso", f"El hábito '{valor}' ya está registrado.")
+
     else:
         # Si el hábito es válido, lo añadimos
         habitos[valor.lower()] = "Pendiente"
@@ -69,31 +38,40 @@ def anadir_habito():
         habito.set("")  # Limpiar el campo de entrada
 
 def actualizar_habito():
-    #Funcion para actualizar el estado del habito
+    #Funcion para marcar un hábito como completado, utiliza lo que haya escrito el usuario en la entrada de texto para buscar su clave correspondiente en nuestro diccionario y cambiar su valor
+
     valor = habito.get().strip()
 
     if valor.lower() == "":
-            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir habito
-            messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+        #Si el usuario no introduce nada, devuelve mensaje de error
+        messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+
     elif valor.lower() not in habitos:
+        #Si el hábito escrito no existe en nuestro diccionario, devuelve mensaje de error
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+
     elif habitos[valor.lower()] == "Completado":
+            #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
             messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
+
     else:
         #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
         habitos[valor] = "Completado"
-        messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!")
-        guardar_habitos(historial)
+        #Mensaje de confirmación de que se ha realizado la accion
+        messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!") 
+        guardar_habitos(historial) #Actualizamos el historial con el diccionario nuevo
         habito.set("")  # Limpiar el campo de entrada
 
 def ver_progreso():
     #Funcion para ver el progreso actual de habitos
-    count = 0
+    count = 0 # Este contador nos sirve para más adelante numerar los hábitos dentro de la ventana nueva
+
     if len(historial["habitos"]) == 0:
-        #Si no hay habitos registrados mensaje de error
+        #Si no hay habitos registrados muestra mensaje de error
         messagebox.showerror("Error","No tienes hábitos registras aún. ¡Añade uno para empezar!")
+
     else:
-        #Crea una ventana para mostrar el progreso actual
+        #Crea una ventana nueva para mostrar el progreso actual
         ventana = tk.Tk()
         ventana.title("Progreso")
         
@@ -104,6 +82,8 @@ def ver_progreso():
                  fg="#ECF0F1", 
                  bg="#2C3E50"
                  ).pack(pady=15, padx=30) 
+        
+        # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
         for clave, valor in historial["habitos"].items(): 
             count += 1
             tk.Label(ventana, 
@@ -113,7 +93,8 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def eliminar_habito():
-    #Funcion para eliminar seguimiento de un habito
+#Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
+
     valor = habito.get().strip()
     if valor.lower() in habitos:
         resultado = messagebox.askquestion("Eliminar", f"Estas seguro de querer eliminar el hábito {valor.capitalize()}")
@@ -126,15 +107,21 @@ def eliminar_habito():
     elif valor.lower() not in habitos:
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
-# --- SECCIÓN: GUI ---
-#Ventana Princpal
+# === SECCIÓN: GUI ===
+
+##Ventana Princpal
+# - Ventana principal de la app, donde están alojados el titulo, la entrada de texto y los botones -
 root = tk.Tk()
 root.title("Easy Habit Tracker")
 root.geometry("400x350")
 root.configure(bg="#2C3E50")
-#Variables
+
+##Variables de la GUI
+# -Esta variable, está mapeada al entry de más adelante, y es lo que la enlaza con las funciones -
 habito = tk.StringVar()
-#Display
+
+##Encabezado
+# - Encabezado donde se muestra la fecha y el nombre de la app -
 title = tk.Label(root, 
                  text=f"EASY HABIT TRACKER\n{fecha}", 
                  font=("Arial", 18, "bold"), 
@@ -142,7 +129,9 @@ title = tk.Label(root,
                  bg="#2C3E50"
                  ).pack(padx=30, pady=30)
 
-#Entrada de texto
+##Entrada de texto
+# -- En esta entrada el usuario escribirá, y servira de enlace con los botones para llevar a cabo las diferentes funciones -- 
+
 entrada = tk.Entry(root, 
                    textvariable=habito, 
                    bg="#2C2F33",
@@ -153,28 +142,33 @@ entrada = tk.Entry(root,
                    highlightcolor="#99AAB5"
                    ).pack(pady=5)
 
-#Botones
-boton1 = tk.Button(root, 
+##Botones
+
+#Boton añadir hábito
+boton_anadir = tk.Button(root, 
                    text="Añadir hábito", 
                    command=anadir_habito, 
                    bg="#E74C3C", 
                    fg="#ECF0F1",
                    ).pack(pady=5)
 
-boton2 = tk.Button(root, 
+#Boton para marcar completado
+boton_completado = tk.Button(root, 
                    text="Marcar completado", 
                    command=actualizar_habito, 
                    bg="#E74C3C", 
                    fg="#ECF0F1"
                    ).pack(pady=5)
 
-boton3 = tk.Button(root, 
+#Boton para eliminar
+boton_eliminar = tk.Button(root, 
                    text="Eliminar hábito", 
                    command=eliminar_habito, 
                    bg="#E74C3C", 
                    fg="#ECF0F1").pack(pady=5)
 
-boton4 = tk.Button(root, 
+#Boton para ver progreso
+boton_progreso = tk.Button(root, 
                    text="Ver progreso", 
                    command=ver_progreso, 
                    bg="#E74C3C", 
@@ -182,7 +176,8 @@ boton4 = tk.Button(root,
                    fg="#ECF0F1").pack(pady=5)
 
 
-boton5 = tk.Button(root, 
+#Boton para salir
+boton_salir = tk.Button(root, 
                    text="Salir",
                    bg="#2E4053",
                    fg="#FF6F61",
