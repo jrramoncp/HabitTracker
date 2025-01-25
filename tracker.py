@@ -5,8 +5,11 @@
 from datetime import datetime
 from data_manager import guardar_habitos, leer_habitos, comprobar_fecha
 import tkinter as tk
+from tkinter import messagebox
 
 # --- SECCIÓN: Lógica del Rastreador de Hábitos ---
+
+#Variables
 habitos = leer_habitos()
 
 fecha = datetime.now().strftime('%d/%m/%Y')
@@ -53,61 +56,38 @@ def main():
             print("---------")
             
 def anadir_habito():
-    #Funcion para añadir un hábito nuevo
-    nombre = ""
-    while nombre == "":
-        print("---------")
-        nombre = input("Introduce tu nuevo hábito: ")
-        if nombre.lower() in habitos: 
-            #Si ya estamos haciendo seguimiento de ese hábito
-            print("---------")
-            print("Ya estas haciendo seguimiento de ese hábito.")
-            print("---------")
-        elif nombre.lower() == "":
-            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
-            print("¡CUIDADO!, no has escrito nada")
-        else: 
-            #Si no, lo añadimos al diccionario
-            habitos[nombre.lower()] = "Pendiente"
-            print("---------")
-            print(f"Hábito {nombre.capitalize()} añadido correctamente y marcado como 'Pendiente'")
-            print("---------")
+    valor = habito.get().strip()  # Obtener el valor del input y eliminar espacios extra
+    
+    if not valor: 
+        # Si la cadena está vacía, mostramos un mensaje de error
+        messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+    elif valor.lower() in habitos:
+        # Si el hábito ya existe, mostramos una advertencia
+        messagebox.showwarning("Aviso", f"El hábito '{valor}' ya está registrado.")
+    else:
+        # Si el hábito es válido, lo añadimos
+        habitos[valor.lower()] = "Pendiente"
+        messagebox.showinfo("Éxito", f"Hábito '{valor}' añadido con éxito.")
+        guardar_habitos(historial)
+        habito.set("")  # Limpiar el campo de entrada
 
 def actualizar_habito():
     #Funcion para actualizar el estado del habito
-    print("---------")
-    nombre = ""
-    while nombre == "":
-        nombre = input("Introduce el hábito que quieres marcar como completado: ")
-        if nombre.lower() in habitos:
-            #Si el nombre coincide con alguno del diccionario, cambio su valor a "Completado"
-            habitos[nombre] = "Completado"
-            print("---------")
-            print(f"{nombre.capitalize()} marcado como completado. ¡Sigue así!")
-            print("---------")
-        elif nombre.lower() == "":
-            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
-            print("¡CUIDADO!, no has escrito nada")
-        else:
-            #Si el nombre introducio no coincide, imprime mensaje de error
-            print("---------")
-            print("No estas haciendos siguimiento de ese hábito")
-            print("---------")
-            while True:
-                nuevo = input("¿Quieres añadirlo como nuevo hábito? Si | No ")
-                #Da la posibilidad de añadir un nuevo habito al diccionario
-                if nuevo.lower() == "si":
-                    #Si el usuario indica que si, añade el nuevo habito al diccionario
-                    habitos[nombre] = "Pendiente"
-                    print(f"Habito {nombre} añadido y marcado como 'Pendiente'")
-                    break
-                if nuevo.lower() == "no":
-                    print("De acuerdo... volviendo al menú principal")
-                    #Si el usuario indica que no, salimos al menu principal
-                    break
-                else: 
-                    print("Respuesta no válida, vuelve a intentarlo")
-                    #Nos aseguramos que la respuesta sea válida
+    valor = habito.get().strip()
+
+    if valor.lower() == "":
+            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir habito
+            messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+    elif valor.lower() not in habitos:
+        messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+    elif habitos[valor.lower()] == "Completado":
+            messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
+    else:
+        #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
+        habitos[valor] = "Completado"
+        messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!")
+        guardar_habitos(historial)
+        habito.set("")  # Limpiar el campo de entrada
 
 def ver_progreso():
     #Funcion para ver el progreso actual de habitos
@@ -126,65 +106,40 @@ def ver_progreso():
 
 def eliminar_habito():
     #Funcion para eliminar seguimiento de un habito
-    print("---------")
-    nombre = ""
-    while nombre == "":
-        nombre = input("Introduce el nombre del hábito que quieres eliminar o 'cancelar' para volver al menú principal: ")
-        if nombre.lower() == "cancelar":
-            #Si el usuario escribe atras vuelve al menú principal
-            break
-        elif nombre.lower() in habitos: 
-            while True:
-                print("---------")
-                print("Atención perderas tu progreso y esta opción es irreversible") #Advertencia
-                confirmacion = input("Vuelve a introducir el hábito para confirmar o cancelar para volver al menú principal ") #Confirmacion de que se quiere eliminar el hábito
-                if confirmacion.lower() == nombre.lower():
-                    #Elimina habito y vuelve a inicio
-                    del habitos[nombre.lower()]
-                    print("---------")
-                    print(f"Habito {nombre.capitalize()} eliminado")
-                    print("---------")
-                    break
-                if confirmacion.lower() == "cancelar":
-                    #Vuelve a inicio
-                    break
-                else: 
-                    #Si no es ninguna de las dos opciones, mensaje de error
-                    print("---------")
-                    print("Respuesta no válida, vuelve a intentarlo")
-                    print("---------")
-        elif nombre.lower() == "":
-            #Si el usuario no introduce nada, mensaje de error y vuelve a pedir nombre
-            print("¡CUIDADO!, no has escrito nada")
-        else: 
-            print("---------")
-            print("ERROR! No estas haciendo seguimiento de ese hábito o has escrito mal 'cancelar'")
-            print("Volviendo al menú principal...")
-            print("---------")
+    valor = habito.get().strip()
+    if valor.lower() in habitos:
+        resultado = messagebox.askquestion("Eliminar", f"Estas seguro de querer eliminar el hábito {valor.capitalize()}")
+        if resultado == "yes": 
+            del habitos[valor.lower()]
+            guardar_habitos(historial)
+            habito.set("")
+    elif valor.lower() == "":
+        messagebox.showerror("Error", "No has escrito nada")
+    elif valor.lower() not in habitos:
+        messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+
 
 # --- SECCIÓN: GUI ---
-#Variables
-
-
-
 #Ventana Princpal
 root = tk.Tk()
 root.title("Habit Tracker")
 root.geometry("300x300")
 root.configure(bg="cyan")
-texto = tk.StringVar()
+#Variables
+habito = tk.StringVar()
 #Display
 title = tk.Label(root, text=f"HABIT TRACKER\n{fecha}", font=("Arial", 18, "bold"), fg="white", bg="cyan").pack()
 
 #Entrada de texto
-entrada = tk.Entry(root).pack()
+entrada = tk.Entry(root, textvariable=habito).pack()
 
 #Botones
-boton1 = tk.Button(root, text="Añadir hábito").pack(side="top")
-boton2 = tk.Button(root, text="Actualizar hábito").pack(side="top")
+boton1 = tk.Button(root, text="Añadir hábito", command=anadir_habito).pack(side="top")
+boton2 = tk.Button(root, text="Actualizar hábito", command=actualizar_habito).pack(side="top")
 boton3 = tk.Button(root, text="Ver progreso").pack(side="top")
-boton4 = tk.Button(root, text="Eliminar hábito").pack(side="top")
+boton4 = tk.Button(root, text="Eliminar hábito", command=eliminar_habito).pack(side="top")
 boton5 = tk.Button(root, text="Salir").pack(side="top")
+
 # --- SECCIÓN: Ejecución ---
 root.mainloop()
 
