@@ -9,12 +9,9 @@ from tkinter import messagebox
 
 # --- SECCIÓN: Lógica del Rastreador de Hábitos ---
 
-#Variables
+#Variables Principales
 habitos = leer_habitos()
-
 fecha = datetime.now().strftime('%d/%m/%Y')
-
-
 historial = {
     "fecha" : fecha,
     "habitos" : habitos
@@ -129,7 +126,6 @@ def eliminar_habito():
     elif valor.lower() not in habitos:
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
-
 # --- SECCIÓN: GUI ---
 #Ventana Princpal
 root = tk.Tk()
@@ -164,12 +160,14 @@ boton1 = tk.Button(root,
                    bg="#E74C3C", 
                    fg="#ECF0F1",
                    ).pack(pady=5)
+
 boton2 = tk.Button(root, 
                    text="Marcar completado", 
                    command=actualizar_habito, 
                    bg="#E74C3C", 
                    fg="#ECF0F1"
                    ).pack(pady=5)
+
 boton3 = tk.Button(root, 
                    text="Eliminar hábito", 
                    command=eliminar_habito, 
@@ -187,7 +185,8 @@ boton4 = tk.Button(root,
 boton5 = tk.Button(root, 
                    text="Salir",
                    bg="#2E4053",
-                   fg="#FF6F61"
+                   fg="#FF6F61",
+                   command=lambda: root.destroy()
                    ).pack(pady=5)
 
 # --- SECCIÓN: Ejecución ---
