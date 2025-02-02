@@ -49,7 +49,7 @@ def actualizar_habito():
         #Si el hábito escrito no existe en nuestro diccionario, devuelve mensaje de error
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
-    elif habitos[valor.lower()] == "Completado":
+    elif historial[fecha][valor.lower()] == "Completado":
             #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
             messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
 
