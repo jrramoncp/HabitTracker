@@ -13,8 +13,7 @@ from tkinter import messagebox
 habitos = leer_habitos()
 fecha = datetime.now().strftime('%d/%m/%Y')
 historial = {
-    "fecha" : fecha,
-    "habitos" : habitos
+    fecha : {}
 }
 
 def anadir_habito():
@@ -32,7 +31,7 @@ def anadir_habito():
 
     else:
         # Si el hábito es válido, lo añadimos
-        habitos[valor.lower()] = "Pendiente"
+        historial[fecha][valor.lower()] = "Pendiente"
         messagebox.showinfo("Éxito", f"Hábito '{valor}' añadido con éxito.")
         guardar_habitos(historial)
         habito.set("")  # Limpiar el campo de entrada
@@ -56,7 +55,7 @@ def actualizar_habito():
 
     else:
         #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
-        habitos[valor] = "Completado"
+        historial[fecha][valor.lower()] = "Completado"
         #Mensaje de confirmación de que se ha realizado la accion
         messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!") 
         guardar_habitos(historial) #Actualizamos el historial con el diccionario nuevo

@@ -24,17 +24,12 @@ def leer_habitos():
     
     except FileNotFoundError:
         #SI NO ENCUENTRA EL ARCHIVO, CREA UN ARCHIVO JSON EN BLANCO
-        datos = {"fecha" : fecha, "habitos" : {}}
-
-    if datos["fecha"] != fecha:
-        for habito in datos["habitos"]:
-            datos["habitos"][habito] = "pendiente"
-        datos["fecha"] = fecha
+        datos = {fecha : {}}
 
     with open (filename, 'w') as archivo:
         json.dump(datos, archivo, indent=4)
     
-    return datos["habitos"]
+    return datos
     
 #COMPROBAR FECHA Y MODIFICAR A PENDIENTE SI LA FECHA ACTUAL NO ES LA MISMA QUE HAY GUARDADA
 def comprobar_fecha():
