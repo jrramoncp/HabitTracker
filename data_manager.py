@@ -3,19 +3,21 @@
 import json
 from datetime import datetime, timedelta
 
+#FECHA ACTUAL
 fecha = datetime.now().strftime('%d/%m/%Y')
 
 
-#ACTUALIZAR
+#ACTUALIZAR FICHERO JSON
 def guardar_habitos(dic):
-    #FUNCION PARA GUARDAR HABITOS EN UN FICHERO JSON, SI NO EXISTE CREA EL FICHERO
+    ##FUNCION PARA ACTUALIZAR EL FICHERO JSON CON LOS DATOS DE NUESTRO DICCIONARIO
     filename = "habitos.json"
     with open (filename, 'w') as archivo:
         json.dump(dic, archivo, indent=4)
 
 
-#CARGAR HISTORIAL
+#CARGAR FICHERO JSON 
 def leer_habitos():
+    ##FUNCION PARA CARGAR LOS DATOS DE NUESTRO JSON (HISTORIAL) EN UN DICCIONARIO PARA PODER TRABAJAR CON EL
     filename = "habitos.json"
     #LEE EL ARCHIVO JSON Y DEVUELVE DICCIONARIO CON LOS DATOS
     try:

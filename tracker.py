@@ -3,14 +3,14 @@
 # --- SECCIÓN: Importación de librerías y módulos ---
 
 from datetime import datetime
-from data_manager import guardar_habitos, leer_habitos
+from data_manager import guardar_habitos, leer_habitos, fecha
 import tkinter as tk
 from tkinter import messagebox
 
 # --- SECCIÓN: Lógica del Rastreador de Hábitos ---
 
 #Variables Principales
-fecha = datetime.now().strftime('%d/%m/%Y')
+#fecha = datetime.now().strftime('%d/%m/%Y')
 historial = leer_habitos()
 
 def anadir_habito():
