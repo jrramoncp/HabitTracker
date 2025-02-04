@@ -45,7 +45,7 @@ def actualizar_habito():
         #Si el usuario no introduce nada, devuelve mensaje de error
         messagebox.showerror("Error", "Por favor introduce un hábito válido.")
 
-    elif valor.lower() not in habitos:
+    elif valor.lower() not in historial[fecha]:
         #Si el hábito escrito no existe en nuestro diccionario, devuelve mensaje de error
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
@@ -65,7 +65,7 @@ def ver_progreso():
     #Funcion para ver el progreso actual de habitos
     count = 0 # Este contador nos sirve para más adelante numerar los hábitos dentro de la ventana nueva
 
-    if len(historial["habitos"]) == 0:
+    if len(historial[fecha]) == 0:
         #Si no hay habitos registrados muestra mensaje de error
         messagebox.showerror("Error","No tienes hábitos registras aún. ¡Añade uno para empezar!")
 
@@ -83,7 +83,7 @@ def ver_progreso():
                  ).pack(pady=15, padx=30) 
         
         # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
-        for clave, valor in historial["habitos"].items(): 
+        for clave, valor in historial[fecha].items(): 
             count += 1
             tk.Label(ventana, 
                      text=f"{count}.  {clave.capitalize()}: {valor}", 
@@ -95,15 +95,17 @@ def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
 
     valor = habito.get().strip()
-    if valor.lower() in habitos:
+
+    if valor.lower() in historial[fecha]:
         resultado = messagebox.askquestion("Eliminar", f"Estas seguro de querer eliminar el hábito {valor.capitalize()}")
         if resultado == "yes": 
-            del habitos[valor.lower()]
+            del historial[fecha][valor.lower()]
+            messagebox.showinfo("Delete", f"Habito {valor.capitalize()} eliminado del registro")
             guardar_habitos(historial)
             habito.set("")
     elif valor.lower() == "":
         messagebox.showerror("Error", "No has escrito nada")
-    elif valor.lower() not in habitos:
+    elif valor.lower() not in historial[fecha]:
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
 # === SECCIÓN: GUI ===
