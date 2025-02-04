@@ -3,18 +3,15 @@
 # --- SECCIÓN: Importación de librerías y módulos ---
 
 from datetime import datetime
-from data_manager import guardar_habitos, leer_habitos, comprobar_fecha
+from data_manager import guardar_habitos, leer_habitos
 import tkinter as tk
 from tkinter import messagebox
 
 # --- SECCIÓN: Lógica del Rastreador de Hábitos ---
 
 #Variables Principales
-habitos = leer_habitos()
 fecha = datetime.now().strftime('%d/%m/%Y')
-historial = {
-    fecha : {}
-}
+historial = leer_habitos()
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo, utiliza la entrada de texto, para añadir una nueva clave a nuestro diccionario, que por defecto, tendra el valor "Pendiente"
@@ -25,7 +22,7 @@ def anadir_habito():
         # Si la cadena está vacía, mostramos un mensaje de error
         messagebox.showerror("Error", "Por favor introduce un hábito válido.")
 
-    elif valor.lower() in habitos:
+    elif valor.lower() in historial:
         # Si el hábito ya existe, mostramos una advertencia
         messagebox.showwarning("Aviso", f"El hábito '{valor}' ya está registrado.")
 
