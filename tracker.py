@@ -89,37 +89,8 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def ver_historial():
-        #Funcion para ver el historial, esto es una modificación de la funcion de ver progreso
-        #para utilizar el mismo entry para poder escribir la fecha y mostrar un historico
-    
-    count = 0 # Este contador nos sirve para más adelante numerar los hábitos dentro de la ventana nueva
+    pass
 
-    fecha_historial = habito.get().strip()
-
-    if len(historial[fecha_historial]) == 0:
-        #Si no hay habitos registrados en esa fecha muestra mensaje de error
-        messagebox.showerror("Error","No tienes hábitos registrados en esa fecha")
-
-    else:
-        #Crea una ventana nueva para mostrar el progreso de la fecha escrita
-        ventana = tk.Tk()
-        ventana.title(f"Historial {fecha}")
-        
-        ventana.configure(bg="#2C3E50")
-        tk.Label(ventana, 
-                 text=f"Progreso de {fecha}", 
-                 font=("Arial", 16, "bold"), 
-                 fg="#ECF0F1", 
-                 bg="#2C3E50"
-                 ).pack(pady=15, padx=30) 
-        
-    for clave, valor in historial[fecha_historial].items(): 
-            count += 1
-            tk.Label(ventana, 
-                     text=f"{count}.  {clave.capitalize()}: {valor}", 
-                     font=("Arial", 12, "bold"), 
-                     bg="#2C3E50", 
-                     fg="#3498DB").pack(pady=5)
 
 def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
