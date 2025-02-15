@@ -111,7 +111,7 @@ def eliminar_habito():
 # - Ventana principal de la app, donde están alojados el titulo, la entrada de texto y los botones -
 root = tk.Tk()
 root.title("Easy Habit Tracker")
-root.geometry("400x350")
+root.geometry("450x400")
 root.configure(bg="#2C3E50")
 
 ##Variables de la GUI
@@ -173,6 +173,14 @@ boton_progreso = tk.Button(root,
                    bd=0, 
                    fg="#ECF0F1").pack(pady=5)
 
+
+#Boton para ver fechas anteriores
+boton_progreso = tk.Button(root, 
+                   text="Ver historial", 
+                   command= "", 
+                   bg="#E74C3C", 
+                   bd=0, 
+                   fg="#ECF0F1").pack(pady=5)
 
 #Boton para salir
 boton_salir = tk.Button(root, 
