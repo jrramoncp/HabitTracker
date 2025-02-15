@@ -89,7 +89,7 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def ver_historial():
-    pass
+    messagebox.showinfo("Progress", "Funcionalidad en desarrollo")
 
 
 def eliminar_habito():
