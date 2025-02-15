@@ -89,42 +89,37 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def ver_historial():
-    #Crea una ventana nueva para mostrar el historial
+        #Funcion para ver el historial, esto es una modificación de la funcion de ver progreso
+        #para utilizar el mismo entry para poder escribir la fecha y mostrar un historico
+    
+    count = 0 # Este contador nos sirve para más adelante numerar los hábitos dentro de la ventana nueva
+
+    fecha_historial = habito.get().strip()
+
+    if len(historial[fecha_historial]) == 0:
+        #Si no hay habitos registrados en esa fecha muestra mensaje de error
+        messagebox.showerror("Error","No tienes hábitos registrados en esa fecha")
+
+    else:
+        #Crea una ventana nueva para mostrar el progreso de la fecha escrita
         ventana = tk.Tk()
-        ventana.title("Historial")
+        ventana.title(f"Historial {fecha}")
         
         ventana.configure(bg="#2C3E50")
         tk.Label(ventana, 
-                 text=f"Historial", 
+                 text=f"Progreso de {fecha}", 
                  font=("Arial", 16, "bold"), 
                  fg="#ECF0F1", 
                  bg="#2C3E50"
-                 ).pack(pady=15, padx=30)
+                 ).pack(pady=15, padx=30) 
         
-        fecha = tk.StringVar()
-
-        ## Entrada de texto para escribir la fecha
-        entrada = tk.Entry(ventana, 
-                   text ="dd/mm/yyyy", 
-                   textvariable=fecha, 
-                   bg="#2C2F33",
-                   fg="#FFFFFF", 
-                   insertbackground="#7289DA",  
-                   highlightthickness=2,
-                   highlightbackground="#7289DA",
-                   highlightcolor="#99AAB5"
-                   ).pack(pady=5)
-
-        fecha = fecha.get().strip()
-
-        buscar = tk.Button(ventana, 
-                   text="Buscar", 
-                   command=ver_progreso, 
-                   bg="#E74C3C", 
-                   fg="#ECF0F1",
-                   ).pack(pady=5)
-
-
+    for clave, valor in historial[fecha_historial].items(): 
+            count += 1
+            tk.Label(ventana, 
+                     text=f"{count}.  {clave.capitalize()}: {valor}", 
+                     font=("Arial", 12, "bold"), 
+                     bg="#2C3E50", 
+                     fg="#3498DB").pack(pady=5)
 
 def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
@@ -149,7 +144,7 @@ def eliminar_habito():
 # - Ventana principal de la app, donde están alojados el titulo, la entrada de texto y los botones -
 root = tk.Tk()
 root.title("Easy Habit Tracker")
-root.geometry("450x400")
+root.geometry("400x450")
 root.configure(bg="#2C3E50")
 
 ##Variables de la GUI
@@ -164,6 +159,13 @@ title = tk.Label(root,
                  fg="#3498DB", 
                  bg="#2C3E50"
                  ).pack(padx=30, pady=30)
+
+mensaje = tk.Label(root, 
+                 text=f"Escribe un hábito para registrar \no una fecha para ver el historial", 
+                 font=("Arial", 12, "bold"), 
+                 fg="#3498DB", 
+                 bg="#2C3E50"
+                 ).pack(padx=30, pady=5)
 
 ##Entrada de texto
 # -- En esta entrada el usuario escribirá, y servira de enlace con los botones para llevar a cabo las diferentes funciones -- 
