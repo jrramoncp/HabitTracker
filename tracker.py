@@ -22,7 +22,7 @@ def anadir_habito():
         # Si la cadena está vacía, mostramos un mensaje de error
         messagebox.showerror("Error", "Por favor introduce un hábito válido.")
 
-    elif valor.lower() in historial:
+    elif valor.lower() in historial[fecha]:
         # Si el hábito ya existe, mostramos una advertencia
         messagebox.showwarning("Aviso", f"El hábito '{valor}' ya está registrado.")
 
@@ -87,6 +87,44 @@ def ver_progreso():
                      font=("Arial", 12, "bold"), 
                      bg="#2C3E50", 
                      fg="#3498DB").pack(pady=5)
+
+def ver_historial():
+    #Crea una ventana nueva para mostrar el historial
+        ventana = tk.Tk()
+        ventana.title("Historial")
+        
+        ventana.configure(bg="#2C3E50")
+        tk.Label(ventana, 
+                 text=f"Historial", 
+                 font=("Arial", 16, "bold"), 
+                 fg="#ECF0F1", 
+                 bg="#2C3E50"
+                 ).pack(pady=15, padx=30)
+        
+        fecha = tk.StringVar()
+
+        ## Entrada de texto para escribir la fecha
+        entrada = tk.Entry(ventana, 
+                   text ="dd/mm/yyyy", 
+                   textvariable=fecha, 
+                   bg="#2C2F33",
+                   fg="#FFFFFF", 
+                   insertbackground="#7289DA",  
+                   highlightthickness=2,
+                   highlightbackground="#7289DA",
+                   highlightcolor="#99AAB5"
+                   ).pack(pady=5)
+
+        fecha = fecha.get().strip()
+
+        buscar = tk.Button(ventana, 
+                   text="Buscar", 
+                   command=ver_progreso, 
+                   bg="#E74C3C", 
+                   fg="#ECF0F1",
+                   ).pack(pady=5)
+
+
 
 def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
@@ -177,7 +215,7 @@ boton_progreso = tk.Button(root,
 #Boton para ver fechas anteriores
 boton_progreso = tk.Button(root, 
                    text="Ver historial", 
-                   command= "", 
+                   command= ver_historial, 
                    bg="#E74C3C", 
                    bd=0, 
                    fg="#ECF0F1").pack(pady=5)
