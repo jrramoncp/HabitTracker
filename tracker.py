@@ -13,6 +13,7 @@ from tkcalendar import Calendar
 #Variables Principales
 #fecha = datetime.now().strftime('%d/%m/%Y')
 historial = leer_habitos()
+ventana_historial = None #Variable para la funcion historial
 
 def anadir_habito():
     #Funcion para añadir un hábito nuevo, utiliza la entrada de texto, para añadir una nueva clave a nuestro diccionario, que por defecto, tendra el valor "Pendiente"
@@ -69,7 +70,7 @@ def ver_progreso():
 
     else:
         #Crea una ventana nueva para mostrar el progreso actual
-        ventana = tk.Tk()
+        ventana = tk.Toplevel()
         ventana.title("Progreso")
         
         ventana.configure(bg="#2C3E50")
@@ -91,9 +92,9 @@ def ver_progreso():
 
 def ver_historial():
     # VENTANA PARA HISTORIAL
-    ventana = tk.Tk()
+    ventana = tk.Toplevel()
     ventana.title("Historial")
-    ventana.geometry
+    ventana.geometry("400x400")
     ventana.configure(bg="#2C3E50")
     # LABEL PRINCIPAL TITULO
     tk.Label(ventana, 
@@ -113,7 +114,10 @@ def ver_historial():
     cal = Calendar(ventana, selectmode="day")
     cal.pack(pady=20, padx=10)
 
+    
     def show_date():
+        global ventana_historial
+
         raw_date = cal.get_date() #FECHA ELEGIDA POR USUARIO SIN FORMATEAR
          
         date_obj = datetime.strptime(raw_date, "%d/%m/%y") #CONVERTIMOS LA FECHA EN UN OBJERTO
@@ -123,15 +127,20 @@ def ver_historial():
         count = 0 #Contador para cuando abramos la ventana con el progreso del día
 
         try:
+            # SI LA FECHA NO ESTA REGISTRADA, LANZAMOS UN ERROR
             if date not in historial:
                 raise KeyError
             
-            #Crea una ventana nueva para mostrar ese día
-            ventana = tk.Tk()
-            ventana.title(date)
+            # SI YA HAY UNA VENTANA DE HISTORIAL ABIERTA, LA CERRAMOS
+            if ventana_historial is not None:
+                ventana_historial.destroy()
             
-            ventana.configure(bg="#2C3E50")
-            tk.Label(ventana, 
+            #Crea una ventana nueva para mostrar ese día
+            ventana_historial = tk.Toplevel()
+            ventana_historial.title(date)
+            
+            ventana_historial.configure(bg="#2C3E50")
+            tk.Label(ventana_historial, 
                     text=f"Progreso del dia {date}", 
                     font=("Arial", 16, "bold"), 
                     fg="#ECF0F1", 
@@ -141,7 +150,7 @@ def ver_historial():
             # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
             for clave, valor in historial[date].items(): 
                 count += 1
-                tk.Label(ventana, 
+                tk.Label(ventana_historial, 
                         text=f"{count}.  {clave.capitalize()}: {valor}", 
                         font=("Arial", 12, "bold"), 
                         bg="#2C3E50", 
