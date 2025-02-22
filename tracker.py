@@ -90,8 +90,70 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def ver_historial():
-    messagebox.showinfo("Progress", "Funcionalidad en desarrollo")
+    # VENTANA PARA HISTORIAL
+    ventana = tk.Tk()
+    ventana.title("Historial")
+    ventana.geometry
+    ventana.configure(bg="#2C3E50")
+    # LABEL PRINCIPAL TITULO
+    tk.Label(ventana, 
+            text=f"Historial", 
+            font=("Arial", 16, "bold"), 
+            fg="#ECF0F1", 
+            bg="#2C3E50"
+            ).pack(pady=15, padx=30) 
+    # LABEL INFO
+    tk.Label(ventana,
+            text="Selecciona una fecha",
+            font=("Arial", 12, "bold"),
+            fg="#ECF0F1", 
+            bg="#2C3E50"
+            ).pack(padx=30)
+    # CALENADRIO
+    cal = Calendar(ventana, selectmode="day")
+    cal.pack(pady=20, padx=10)
 
+    def show_date():
+        raw_date = cal.get_date() #FECHA ELEGIDA POR USUARIO SIN FORMATEAR
+         
+        date_obj = datetime.strptime(raw_date, "%d/%m/%y") #CONVERTIMOS LA FECHA EN UN OBJERTO
+
+        date = date_obj.strftime("%d/%m/%Y") #REFORMATEAMOS FECHA
+        
+        count = 0 #Contador para cuando abramos la ventana con el progreso del día
+
+        try:
+            if date not in historial:
+                raise KeyError
+            
+            #Crea una ventana nueva para mostrar ese día
+            ventana = tk.Tk()
+            ventana.title(date)
+            
+            ventana.configure(bg="#2C3E50")
+            tk.Label(ventana, 
+                    text=f"Progreso del dia {date}", 
+                    font=("Arial", 16, "bold"), 
+                    fg="#ECF0F1", 
+                    bg="#2C3E50"
+                    ).pack(pady=15, padx=30) 
+            
+            # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
+            for clave, valor in historial[date].items(): 
+                count += 1
+                tk.Label(ventana, 
+                        text=f"{count}.  {clave.capitalize()}: {valor}", 
+                        font=("Arial", 12, "bold"), 
+                        bg="#2C3E50", 
+                        fg="#3498DB").pack(pady=5)
+        except KeyError:
+            messagebox.showerror("Error","No tienes nada registrado este día")
+
+
+
+    # BOTON BUSCAR
+    tk.Button(ventana, text="Buscar", command=show_date).pack(pady=10)
+   
 def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
 
