@@ -91,11 +91,14 @@ def ver_progreso():
                      fg="#3498DB").pack(pady=5)
 
 def ver_historial():
+    #Funcion para ver los hábitos registrados un día anterior
+    
     # VENTANA PARA HISTORIAL
     ventana = tk.Toplevel()
     ventana.title("Historial")
     ventana.geometry("400x400")
     ventana.configure(bg="#2C3E50")
+
     # LABEL PRINCIPAL TITULO
     tk.Label(ventana, 
             text=f"Historial", 
@@ -103,14 +106,16 @@ def ver_historial():
             fg="#ECF0F1", 
             bg="#2C3E50"
             ).pack(pady=15, padx=30) 
-    # LABEL INFO
+    
+    # LABEL MESSAGE
     tk.Label(ventana,
             text="Selecciona una fecha",
             font=("Arial", 12, "bold"),
             fg="#ECF0F1", 
             bg="#2C3E50"
             ).pack(padx=30)
-    # CALENADRIO
+    
+    # CALENDARIO
     cal = Calendar(ventana, selectmode="day")
     cal.pack(pady=20, padx=10)
 
@@ -118,20 +123,20 @@ def ver_historial():
     def show_date():
         global ventana_historial
 
-        raw_date = cal.get_date() #FECHA ELEGIDA POR USUARIO SIN FORMATEAR
+        raw_date = cal.get_date() #Fecha seleccionada sin formatear
          
-        date_obj = datetime.strptime(raw_date, "%d/%m/%y") #CONVERTIMOS LA FECHA EN UN OBJERTO
+        date_obj = datetime.strptime(raw_date, "%d/%m/%y") #Convertimos la fecha sin formatear en un objeto
 
-        date = date_obj.strftime("%d/%m/%Y") #REFORMATEAMOS FECHA
+        date = date_obj.strftime("%d/%m/%Y") #Formateamos fecha para poder filtrar en nuestro diccionario
         
         count = 0 #Contador para cuando abramos la ventana con el progreso del día
 
         try:
-            # SI LA FECHA NO ESTA REGISTRADA, LANZAMOS UN ERROR
+            #Si la fecha no existe en nuestro diccionario, la eliminamos
             if date not in historial:
                 raise KeyError
             
-            # SI YA HAY UNA VENTANA DE HISTORIAL ABIERTA, LA CERRAMOS
+            # Si ya hay una ventana historial abierta la cerramos para abrir la nueva
             if ventana_historial is not None:
                 ventana_historial.destroy()
             
@@ -156,6 +161,7 @@ def ver_historial():
                         bg="#2C3E50", 
                         fg="#3498DB").pack(pady=5)
         except KeyError:
+            # EN CASO DE ERROR, LANZAMOS MENSAJE 
             messagebox.showerror("Error","No tienes nada registrado este día")
 
 
