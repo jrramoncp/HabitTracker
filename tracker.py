@@ -6,6 +6,7 @@ from datetime import datetime
 from data_manager import guardar_habitos, leer_habitos, fecha
 import tkinter as tk
 from tkinter import messagebox
+from tkcalendar import Calendar
 
 # --- SECCIÓN: Lógica del Rastreador de Hábitos ---
 
@@ -90,7 +91,6 @@ def ver_progreso():
 
 def ver_historial():
     messagebox.showinfo("Progress", "Funcionalidad en desarrollo")
-
 
 def eliminar_habito():
 #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
