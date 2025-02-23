@@ -192,7 +192,7 @@ def eliminar_habito():
 # - Ventana principal de la app, donde están alojados el titulo, la entrada de texto y los botones -
 root = tk.Tk()
 root.title("Easy Habit Tracker")
-root.geometry("400x450")
+root.geometry("400x460")
 root.configure(bg="#2C3E50")
 
 ##Variables de la GUI
@@ -206,10 +206,10 @@ title = tk.Label(root,
                  font=("Arial", 18, "bold"), 
                  fg="#3498DB", 
                  bg="#2C3E50"
-                 ).pack(padx=30, pady=30)
+                 ).pack(padx=10, pady=10)
 
 mensaje = tk.Label(root, 
-                 text=f"Escribe un hábito para registrar \no una fecha para ver el historial", 
+                 text=f"Escribe un hábito", 
                  font=("Arial", 12, "bold"), 
                  fg="#3498DB", 
                  bg="#2C3E50"
@@ -228,7 +228,14 @@ entrada = tk.Entry(root,
                    highlightcolor="#99AAB5"
                    ).pack(pady=5)
 
-##Botones
+acciones = tk.Label(root, 
+                 text=f"¿Que hacemos con tu hábito?", 
+                 font=("Arial", 12, "bold"), 
+                 fg="#3498DB", 
+                 bg="#2C3E50"
+                 ).pack(padx=30, pady=5)
+
+##Botones de acción para hábitos
 
 #Boton añadir hábito
 boton_anadir = tk.Button(root, 
@@ -252,6 +259,17 @@ boton_eliminar = tk.Button(root,
                    command=eliminar_habito, 
                    bg="#E74C3C", 
                    fg="#ECF0F1").pack(pady=5)
+
+
+##Botones para visualizar datos
+
+#Label aclaratorio
+ver_progreso_historial = tk.Label(root, 
+                 text=f"¿Quieres ver tu progreso?", 
+                 font=("Arial", 12, "bold"), 
+                 fg="#3498DB", 
+                 bg="#2C3E50"
+                 ).pack(padx=30, pady=5)
 
 #Boton para ver progreso
 boton_progreso = tk.Button(root, 

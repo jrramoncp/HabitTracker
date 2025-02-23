@@ -1,7 +1,7 @@
 # Easy Habit Tracker
 
 ## Descripción
-**Easy Habit Tracker** es una aplicación sencilla basada en la línea de comandos (CLI) diseñada para ayudarte a realizar un seguimiento de tus hábitos diarios de manera eficiente y práctica. Con esta herramienta, puedes añadir nuevos hábitos, marcar su progreso, visualizar tu avance diario y eliminar aquellos que ya no desees rastrear.
+**Easy Habit Tracker** Easy Habit Tracker es una aplicación de escritorio desarrollada en Python con una interfaz basada en Tkinter, diseñada para ayudar a los usuarios a realizar un seguimiento de sus hábitos diarios de manera sencilla y efectiva. Con esta aplicación, puedes añadir nuevos hábitos, marcar su progreso, visualizar tu avance diario o por en fechas anteriores y eliminar aquellos que ya no desees rastrear.
 
 ---
 
@@ -10,6 +10,7 @@
 - **Actualizar el estado de los hábitos**: Marca tus hábitos como "Completados" cuando los termines.
 - **Ver progreso diario**: Visualiza el estado actual de todos los hábitos.
 - **Eliminar hábitos**: Elimina hábitos del rastreador cuando ya no sean necesarios.
+- **Ver historial**: Permite ver el progreso de hábitos en días pasados
 - **Interfaz simple y amigable**: Navega a través del menú principal con facilidad.
 
 ---
@@ -17,13 +18,19 @@
 ## Tecnologías utilizadas
 - **Lenguaje:** Python
 - **Librerías:**
-  - `datetime` (opcional, para mostrar la fecha actual).
+  - `datetime`: Para mostrar la fecha actual
+  - `tkinter`: Para la interfaz gráfica
+  - `tkcalendar`: Para el calendarío en la sección "Ver Historial"
 
 ---
 
 ## Requisitos previos
-1. **Python 3.7 o superior:** Asegúrate de tener instalado Python en tu sistema.
 
+Antes de ejecutar la aplicación, asegúrate de tener Python 3 instalado en tu sistema. Además, necesitas instalar las siguientes librerías:
+
+```bash
+pip install tkcalendar
+```
 ---
 
 ## Instalación
@@ -37,45 +44,42 @@
    ```
 3. Ejecuta el script principal:
    ```bash
-   python main.py
+   python tracker.py
    ```
+
+---
+## Estructura del Proyecto
+
+El proyecto está compuesto por los siguientes archivos:
+
+- **tracker.py**: Interfaz gráfica de la aplicación.
+- **data_manager.py**: Módulo encargado de la gestión de datos y almacenamiento en JSON.
+- **habitos.json**: Archivo que almacena el historial de hábitos (se crea al iniciar el programa por primera vez).
 
 ---
 
 ## Cómo usar
 1. Al iniciar el programa, se mostrará el menú principal.
-2. Selecciona una opción escribiendo el número correspondiente.
-3. Sigue las instrucciones en pantalla para añadir, actualizar, ver o eliminar hábitos.
-4. Escribe `5` para salir del programa.
+2. Escribe un hábito en el cuadro de texto.
+3. Haz clic en la acción que quieras llevar a cabo con ese hábito.
+4. Elige 'Ver Progreso' o 'Ver Historial' para ver tu progreso actual o pasado.
+5. Elige 'Salir' para cerrar la aplicación.
 
 ---
 
-## Ejemplo de uso
-```text
-========================================
-        Easy Habit Tracker
-========================================
-Hoy es 22/12/2024
-----------------------------------------
-1. Añadir un nuevo hábito
-2. Marcar hábito como completado
-3. Ver progreso diario
-4. Eliminar hábito
-5. Salir
-----------------------------------------
-Introduce una opción: 1
----------
-Introduce tu nuevo hábito: Leer 30 minutos
----------
-Hábito Leer 30 minutos añadido correctamente y marcado como 'Pendiente'
-```
-
----
-
-## Próximas mejoras
-- Añadir almacenamiento persistente para guardar los hábitos entre sesiones.
-- Implementar estadísticas sobre el progreso de los hábitos.
-- Crear una interfaz gráfica más interactiva.
+## Capturas de pantalla
+**Menú Principal**
+![Project Screenshot](img/main_menu.png)
+**Agregar Hábito**
+![Project Screenshot](img/add_habit.png)
+**Completar Hábito**
+![Project Screenshot](img/complete.png)
+**Eliminar Hábito**
+![Project Screenshot](img/delete_habit.png)
+**Ver Progreso Actual**
+![Project Screenshot](img/progress.png)
+**Ver Historial**
+![Project Screenshot](img/history.png)
 
 ---
 
@@ -86,7 +90,7 @@ Si deseas contribuir a este proyecto, no dudes en realizar un fork del repositor
 
 ## Autor
 **Jose Ramón Caravaca**  
-[GitHub](https://github.com/jrramoncp) | [Email](mailto:joseramoncaravaca@gmail.com)
+[GitHub](https://github.com/jrramoncp) | [Email](mailto:joseramoncaravaca@gmail.com) | [Instagram](https://www.instagram.com/jrramoncp)
 
 ---
 
