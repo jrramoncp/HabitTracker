@@ -69,16 +69,27 @@ El proyecto está compuesto por los siguientes archivos:
 
 ## Capturas de pantalla
 **Menú Principal**
+
 ![Project Screenshot](img/main_menu.png)
+
 **Agregar Hábito**
+
 ![Project Screenshot](img/add_habit.png)
+
 **Completar Hábito**
+
 ![Project Screenshot](img/complete.png)
+
 **Eliminar Hábito**
+
 ![Project Screenshot](img/delete_habit.png)
+
 **Ver Progreso Actual**
+
 ![Project Screenshot](img/progress.png)
+
 **Ver Historial**
+
 ![Project Screenshot](img/history.png)
 
 ---
