@@ -195,6 +195,35 @@ def ver_progreso():
                 bg="#2C3E50", 
                 fg="#3498DB").pack(pady=5)
 
+    def delete_all():
+        global historial
+        historial[fecha] = {}
+        guardar_habitos(historial)
+        ventana_progreso.destroy()
+        ver_progreso()
+
+    def complete_all():
+        global historial
+        for habito in historial[fecha]:
+            historial[fecha][habito] = "Completado"
+        guardar_habitos(historial)
+        ventana_progreso.destroy()
+        ver_progreso()
+
+    # Boton para eliminar todos los hábitos
+    tk.Button(ventana_progreso, 
+              text="Eliminar todos", 
+              command=delete_all, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
+
+    # Boton para marcar todos los hábitos como completados
+    tk.Button(ventana_progreso, 
+              text="Completar todos", 
+              command=complete_all, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
+
 def eliminar_habito():
     global ventana_historial, ventana_progreso
     #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento

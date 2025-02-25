@@ -17,3 +17,8 @@ UPDATE: gracias a chatgpt (no sé como programar en python), he conseguido la so
 BUG: probando historial, al poner la fecha de hoy (25.2.2025), el código ha fallado en mi ordenador porque el formato de fecha de mi ordenador es (2.25.2025). En vez de DD/MM/YYYY, mi ordenador tiene MM/DD/YYYY. Este tipo de cosas hay que tenerlas en cuenta ya que cada usuario puede tener un formato diferente.
 
 Update: Después de 30mins peleandome con ChatGPT no he conseguido solucionarlo... 
+
+3. Pequeña idea: despues de crear 10 o 20 hábitos, me es muy molesto eliminar o completar todos de una.
+Pequeña solución, añadir 2 botones "eliminar todos" y "completar todos" para que haga esa función. (esto me puede mejorar con más interfaz de usuario, algo como "eliminado/completado correctamente. Pero por ahora lo dejo así.)
+
+NOTA: Muy buen el control de duplicados! He intentado poner lo mismo dos veces y el programa no me ha dejado. Perfecto! Eso es super importante.
