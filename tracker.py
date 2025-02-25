@@ -14,8 +14,10 @@ from tkcalendar import Calendar
 #fecha = datetime.now().strftime('%d/%m/%Y')
 historial = leer_habitos()
 ventana_historial = None #Variable para la funcion historial
+ventana_progreso = None #Variable para la funcion progreso
 
 def anadir_habito():
+    global ventana_historial, ventana_progreso
     #Funcion para añadir un hábito nuevo, utiliza la entrada de texto, para añadir una nueva clave a nuestro diccionario, que por defecto, tendra el valor "Pendiente"
 
     valor = habito.get().strip()  # Obtener el valor del input y eliminar espacios extra
@@ -35,7 +37,21 @@ def anadir_habito():
         guardar_habitos(historial)
         habito.set("")  # Limpiar el campo de entrada
 
+        # Close the historial window if it is open
+        if ventana_historial is not None:
+            ventana_historial.destroy()
+            ventana_historial = None
+
+        # Close the progreso window if it is open
+        if ventana_progreso is not None:
+            ventana_progreso.destroy()
+            ventana_progreso = None
+
+        # Reopen the progreso window
+        ver_progreso()
+
 def actualizar_habito():
+    global ventana_historial, ventana_progreso
     #Funcion para marcar un hábito como completado, utiliza lo que haya escrito el usuario en la entrada de texto para buscar su clave correspondiente en nuestro diccionario y cambiar su valor
 
     valor = habito.get().strip()
@@ -60,37 +76,21 @@ def actualizar_habito():
         guardar_habitos(historial) #Actualizamos el historial con el diccionario nuevo
         habito.set("")  # Limpiar el campo de entrada
 
-def ver_progreso():
-    #Funcion para ver el progreso actual de habitos
-    count = 0 # Este contador nos sirve para más adelante numerar los hábitos dentro de la ventana nueva
+        # Close the historial window if it is open
+        if ventana_historial is not None:
+            ventana_historial.destroy()
+            ventana_historial = None
 
-    if len(historial[fecha]) == 0:
-        #Si no hay habitos registrados muestra mensaje de error
-        messagebox.showerror("Error","No tienes hábitos registras aún. ¡Añade uno para empezar!")
+        # Close the progreso window if it is open
+        if ventana_progreso is not None:
+            ventana_progreso.destroy()
+            ventana_progreso = None
 
-    else:
-        #Crea una ventana nueva para mostrar el progreso actual
-        ventana = tk.Toplevel()
-        ventana.title("Progreso")
-        
-        ventana.configure(bg="#2C3E50")
-        tk.Label(ventana, 
-                 text=f"Progreso de hoy {fecha}", 
-                 font=("Arial", 16, "bold"), 
-                 fg="#ECF0F1", 
-                 bg="#2C3E50"
-                 ).pack(pady=15, padx=30) 
-        
-        # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
-        for clave, valor in historial[fecha].items(): 
-            count += 1
-            tk.Label(ventana, 
-                     text=f"{count}.  {clave.capitalize()}: {valor}", 
-                     font=("Arial", 12, "bold"), 
-                     bg="#2C3E50", 
-                     fg="#3498DB").pack(pady=5)
+        # Reopen the progreso window
+        ver_progreso()
 
 def ver_historial():
+    global ventana_historial
     #Funcion para ver los hábitos registrados un día anterior
     
     # VENTANA PARA HISTORIAL
@@ -164,13 +164,40 @@ def ver_historial():
             # EN CASO DE ERROR, LANZAMOS MENSAJE 
             messagebox.showerror("Error","No tienes nada registrado este día")
 
-
-
     # BOTON BUSCAR
     tk.Button(ventana, text="Buscar", command=show_date).pack(pady=10)
-   
+
+def ver_progreso():
+    global ventana_progreso
+    #Funcion para ver el progreso de los hábitos del día actual
+    
+    # VENTANA PARA PROGRESO
+    ventana_progreso = tk.Toplevel()
+    ventana_progreso.title("Progreso")
+    ventana_progreso.geometry("400x400")
+    ventana_progreso.configure(bg="#2C3E50")
+
+    # LABEL PRINCIPAL TITULO
+    tk.Label(ventana_progreso, 
+            text=f"Progreso del día {fecha}", 
+            font=("Arial", 16, "bold"), 
+            fg="#ECF0F1", 
+            bg="#2C3E50"
+            ).pack(pady=15, padx=30) 
+    
+    # Por cada clave (habito) del diccionario, creamos una Label que muestra además el valor (estado)
+    count = 0
+    for clave, valor in historial[fecha].items(): 
+        count += 1
+        tk.Label(ventana_progreso, 
+                text=f"{count}.  {clave.capitalize()}: {valor}", 
+                font=("Arial", 12, "bold"), 
+                bg="#2C3E50", 
+                fg="#3498DB").pack(pady=5)
+
 def eliminar_habito():
-#Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
+    global ventana_historial, ventana_progreso
+    #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
 
     valor = habito.get().strip()
 
@@ -185,6 +212,19 @@ def eliminar_habito():
         messagebox.showerror("Error", "No has escrito nada")
     elif valor.lower() not in historial[fecha]:
         messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+
+    # Close the historial window if it is open
+    if ventana_historial is not None:
+        ventana_historial.destroy()
+        ventana_historial = None
+
+    # Close the progreso window if it is open
+    if ventana_progreso is not None:
+        ventana_progreso.destroy()
+        ventana_progreso = None
+
+    # Reopen the progreso window
+    ver_progreso()
 
 # === SECCIÓN: GUI ===
 
@@ -298,5 +338,3 @@ boton_salir = tk.Button(root,
 
 # --- SECCIÓN: Ejecución ---
 root.mainloop()
-
-
