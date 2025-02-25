@@ -22,3 +22,8 @@ Update: Después de 30mins peleandome con ChatGPT no he conseguido solucionarlo.
 Pequeña solución, añadir 2 botones "eliminar todos" y "completar todos" para que haga esa función. (esto me puede mejorar con más interfaz de usuario, algo como "eliminado/completado correctamente. Pero por ahora lo dejo así.)
 
 NOTA: Muy buen el control de duplicados! He intentado poner lo mismo dos veces y el programa no me ha dejado. Perfecto! Eso es super importante.
+
+3:
+New feature idea: Los botones "Marcar completado" y "Eliminar hábito" son poco funcionales ya que tienes que escribir previamente el hábito registrado. Funcionan correctamente pero para un usuario es tedioso.
+
+Solución: ChatGPT ha sido capaz de implementar esto. (Estoy flipando de haberlo conseguido).

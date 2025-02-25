@@ -15,6 +15,7 @@ from tkcalendar import Calendar
 historial = leer_habitos()
 ventana_historial = None #Variable para la funcion historial
 ventana_progreso = None #Variable para la funcion progreso
+ventana_seleccion = None #Variable para la ventana de selección
 
 def anadir_habito():
     global ventana_historial, ventana_progreso
@@ -51,43 +52,140 @@ def anadir_habito():
         ver_progreso()
 
 def actualizar_habito():
-    global ventana_historial, ventana_progreso
+    global ventana_historial, ventana_progreso, ventana_seleccion
     #Funcion para marcar un hábito como completado, utiliza lo que haya escrito el usuario en la entrada de texto para buscar su clave correspondiente en nuestro diccionario y cambiar su valor
 
-    valor = habito.get().strip()
+    def seleccionar_habito():
+        global ventana_historial, ventana_progreso, ventana_seleccion
+        valor = lista_habitos.get(tk.ACTIVE).strip()
 
-    if valor.lower() == "":
-        #Si el usuario no introduce nada, devuelve mensaje de error
-        messagebox.showerror("Error", "Por favor introduce un hábito válido.")
+        if valor.lower() == "":
+            #Si el usuario no introduce nada, devuelve mensaje de error
+            messagebox.showerror("Error", "Por favor selecciona un hábito válido.")
 
-    elif valor.lower() not in historial[fecha]:
-        #Si el hábito escrito no existe en nuestro diccionario, devuelve mensaje de error
-        messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+        elif valor.lower() not in historial[fecha]:
+            #Si el hábito escrito no existe en nuestro diccionario, devuelve mensaje de error
+            messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
-    elif historial[fecha][valor.lower()] == "Completado":
-            #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
-            messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
+        elif historial[fecha][valor.lower()] == "Completado":
+                #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
+                messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
 
-    else:
-        #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
-        historial[fecha][valor.lower()] = "Completado"
-        #Mensaje de confirmación de que se ha realizado la accion
-        messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!") 
-        guardar_habitos(historial) #Actualizamos el historial con el diccionario nuevo
-        habito.set("")  # Limpiar el campo de entrada
+        else:
+            #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
+            historial[fecha][valor.lower()] = "Completado"
+            #Mensaje de confirmación de que se ha realizado la accion
+            messagebox.showinfo("Éxito", f"Hábito '{valor.capitalize()}' marcado como completado. ¡Bien hecho!") 
+            guardar_habitos(historial) #Actualizamos el historial con el diccionario nuevo
 
-        # Close the historial window if it is open
-        if ventana_historial is not None:
-            ventana_historial.destroy()
-            ventana_historial = None
+            # Close the seleccion window
+            ventana_seleccion.destroy()
+            ventana_seleccion = None
 
-        # Close the progreso window if it is open
-        if ventana_progreso is not None:
-            ventana_progreso.destroy()
-            ventana_progreso = None
+            # Close the historial window if it is open
+            if ventana_historial is not None:
+                ventana_historial.destroy()
+                ventana_historial = None
 
-        # Reopen the progreso window
-        ver_progreso()
+            # Close the progreso window if it is open
+            if ventana_progreso is not None:
+                ventana_progreso.destroy()
+                ventana_progreso = None
+
+            # Reopen the progreso window
+            ver_progreso()
+
+    # VENTANA PARA SELECCIONAR HABITO
+    ventana_seleccion = tk.Toplevel()
+    ventana_seleccion.title("Seleccionar Hábito")
+    ventana_seleccion.geometry("400x400")
+    ventana_seleccion.configure(bg="#2C3E50")
+
+    # LABEL PRINCIPAL TITULO
+    tk.Label(ventana_seleccion, 
+            text=f"Seleccionar Hábito", 
+            font=("Arial", 16, "bold"), 
+            fg="#ECF0F1", 
+            bg="#2C3E50"
+            ).pack(pady=15, padx=30) 
+
+    # LISTBOX PARA MOSTRAR HABITOS
+    lista_habitos = tk.Listbox(ventana_seleccion, bg="#2C3E50", fg="#ECF0F1", font=("Arial", 12))
+    lista_habitos.pack(pady=20, padx=10, fill=tk.BOTH, expand=True)
+
+    for habito in historial[fecha]:
+        lista_habitos.insert(tk.END, habito.capitalize())
+
+    # BOTON PARA SELECCIONAR HABITO
+    tk.Button(ventana_seleccion, 
+              text="OK", 
+              command=seleccionar_habito, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
+
+def eliminar_habito():
+    global ventana_historial, ventana_progreso, ventana_seleccion
+    #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
+
+    def seleccionar_habito():
+        global ventana_historial, ventana_progreso, ventana_seleccion
+        valor = lista_habitos.get(tk.ACTIVE).strip()
+
+        if valor.lower() in historial[fecha]:
+            resultado = messagebox.askquestion("Eliminar", f"¿Estas seguro de querer eliminar el hábito {valor.capitalize()}?")
+            if resultado == "yes": 
+                del historial[fecha][valor.lower()]
+                messagebox.showinfo("Delete", f"Habito {valor.capitalize()} eliminado del registro")
+                guardar_habitos(historial)
+
+                # Close the seleccion window
+                ventana_seleccion.destroy()
+                ventana_seleccion = None
+
+                # Close the historial window if it is open
+                if ventana_historial is not None:
+                    ventana_historial.destroy()
+                    ventana_historial = None
+
+                # Close the progreso window if it is open
+                if ventana_progreso is not None:
+                    ventana_progreso.destroy()
+                    ventana_progreso = None
+
+                # Reopen the progreso window
+                ver_progreso()
+        elif valor.lower() == "":
+            messagebox.showerror("Error", "Por favor selecciona un hábito válido.")
+        elif valor.lower() not in historial[fecha]:
+            messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
+
+    # VENTANA PARA SELECCIONAR HABITO
+    ventana_seleccion = tk.Toplevel()
+    ventana_seleccion.title("Seleccionar Hábito")
+    ventana_seleccion.geometry("400x400")
+    ventana_seleccion.configure(bg="#2C3E50")
+
+    # LABEL PRINCIPAL TITULO
+    tk.Label(ventana_seleccion, 
+            text=f"Seleccionar Hábito", 
+            font=("Arial", 16, "bold"), 
+            fg="#ECF0F1", 
+            bg="#2C3E50"
+            ).pack(pady=15, padx=30) 
+
+    # LISTBOX PARA MOSTRAR HABITOS
+    lista_habitos = tk.Listbox(ventana_seleccion, bg="#2C3E50", fg="#ECF0F1", font=("Arial", 12))
+    lista_habitos.pack(pady=20, padx=10, fill=tk.BOTH, expand=True)
+
+    for habito in historial[fecha]:
+        lista_habitos.insert(tk.END, habito.capitalize())
+
+    # BOTON PARA SELECCIONAR HABITO
+    tk.Button(ventana_seleccion, 
+              text="OK", 
+              command=seleccionar_habito, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
 
 def ver_historial():
     global ventana_historial
@@ -223,37 +321,6 @@ def ver_progreso():
               command=complete_all, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
-
-def eliminar_habito():
-    global ventana_historial, ventana_progreso
-    #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
-
-    valor = habito.get().strip()
-
-    if valor.lower() in historial[fecha]:
-        resultado = messagebox.askquestion("Eliminar", f"Estas seguro de querer eliminar el hábito {valor.capitalize()}")
-        if resultado == "yes": 
-            del historial[fecha][valor.lower()]
-            messagebox.showinfo("Delete", f"Habito {valor.capitalize()} eliminado del registro")
-            guardar_habitos(historial)
-            habito.set("")
-    elif valor.lower() == "":
-        messagebox.showerror("Error", "No has escrito nada")
-    elif valor.lower() not in historial[fecha]:
-        messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
-
-    # Close the historial window if it is open
-    if ventana_historial is not None:
-        ventana_historial.destroy()
-        ventana_historial = None
-
-    # Close the progreso window if it is open
-    if ventana_progreso is not None:
-        ventana_progreso.destroy()
-        ventana_progreso = None
-
-    # Reopen the progreso window
-    ver_progreso()
 
 # === SECCIÓN: GUI ===
 
