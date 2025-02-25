@@ -6,3 +6,7 @@ He probado todos los botones y comprobado que hagan sus funciones y todo genial.
 
 Se me han ocurrido algunas ideas para mejorar la experiencia de usuario. Voy a intentar ponerme con mi amigo chatgpt copilot a ver si puedo conseguir lo que tengo en mi mente.
 
+1.
+problema: cuando tienes abierta la ventana de "ver_progreso", hay un pequeño problema de experiencia de usuario y es que, cuando tienes la ventana abierta y, añades o borras un hábito, la pestaña sigue abierta manteniendo la información de antes de añadir/borrar.
+
+solución: de alguna forma, cuando añadir/eliminar hábito se ejecute, destruya la ventana actual y la abra otra vez.
