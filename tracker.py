@@ -132,7 +132,7 @@ def eliminar_habito():
         valor = lista_habitos.get(tk.ACTIVE).strip()
 
         if valor.lower() in historial[fecha]:
-            resultado = messagebox.askquestion("Eliminar", f"¿Estas seguro de querer eliminar el hábito {valor.capitalize()}?")
+            resultado = messagebox.askquestion("Eliminar", f"¿Estas seguro de querer eliminar el hábito {valor.capitalize()}")
             if resultado == "yes": 
                 del historial[fecha][valor.lower()]
                 messagebox.showinfo("Delete", f"Habito {valor.capitalize()} eliminado del registro")
@@ -297,6 +297,7 @@ def ver_progreso():
         global historial
         historial[fecha] = {}
         guardar_habitos(historial)
+        messagebox.showinfo("Eliminar todos", "Todos los hábitos han sido eliminados.")
         ventana_progreso.destroy()
         ver_progreso()
 
@@ -305,6 +306,7 @@ def ver_progreso():
         for habito in historial[fecha]:
             historial[fecha][habito] = "Completado"
         guardar_habitos(historial)
+        messagebox.showinfo("Completar todos", "Todos los hábitos han sido marcados como completados.")
         ventana_progreso.destroy()
         ver_progreso()
 
