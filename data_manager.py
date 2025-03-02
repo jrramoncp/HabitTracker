@@ -2,9 +2,12 @@
 
 import json
 from datetime import datetime, timedelta
+import locale
 
 #FECHA ACTUAL
-fecha = datetime.now().strftime('%d/%m/%Y')
+locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
+fecha_actual = datetime.now()
+fecha = fecha_actual.strftime("%x")
 
 
 #ACTUALIZAR FICHERO JSON
