@@ -7,7 +7,7 @@ import locale
 #FECHA ACTUAL
 locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
 fecha_actual = datetime.now()
-fecha = fecha_actual.strftime("%x")
+fecha = fecha_actual.strftime("%d/%m/%Y")
 
 
 #ACTUALIZAR FICHERO JSON
