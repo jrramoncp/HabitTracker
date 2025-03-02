@@ -182,7 +182,7 @@ def eliminar_habito():
 
     # BOTON PARA SELECCIONAR HABITO
     tk.Button(ventana_seleccion, 
-              text="OK", 
+              text="Eliminar", 
               command=seleccionar_habito, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
