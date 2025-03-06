@@ -54,6 +54,10 @@ def anadir_habito():
 def actualizar_habito():
     global ventana_historial, ventana_progreso, ventana_seleccion
     #Funcion para marcar un hábito como completado, utiliza lo que haya escrito el usuario en la entrada de texto para buscar su clave correspondiente en nuestro diccionario y cambiar su valor
+    
+    if ventana_seleccion is not None:
+        ventana_seleccion.destroy()
+        ventana_seleccion = None
 
     def seleccionar_habito():
         global ventana_historial, ventana_progreso, ventana_seleccion
