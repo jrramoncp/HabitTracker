@@ -50,22 +50,5 @@ def leer_habitos():
         json.dump(datos, archivo, indent=4)
     
     return datos
-    
-#COMPROBAR FECHA Y MODIFICAR A PENDIENTE SI LA FECHA ACTUAL NO ES LA MISMA QUE HAY GUARDADA
-### EN DESHUSO ACTUALMENTE ###
-
-# def comprobar_fecha():
-#     filename = "habitos.json"
-
-#     with open (filename, "r") as archivo:
-#         datos = json.load(archivo)
-
-#     if datos["fecha"] != fecha:
-#         for habito in datos["habitos"]:
-#             datos["habitos"][habito] = "pendiente"
-
-#     with open (filename, 'w') as archivo:
-#         json.dump(datos, archivo, indent=4)
-
 
 

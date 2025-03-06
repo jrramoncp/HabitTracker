@@ -95,6 +95,15 @@ def actualizar_habito():
             # Reopen the progreso window
             ver_progreso()
 
+    def complete_all():
+        global historial
+        for habito in historial[fecha]:
+            historial[fecha][habito] = "Completado"
+        guardar_habitos(historial)
+        messagebox.showinfo("Completar todos", "Todos los hábitos han sido marcados como completados.")
+        ventana_progreso.destroy()
+        ver_progreso()
+
     # VENTANA PARA SELECCIONAR HABITO
     ventana_seleccion = tk.Toplevel()
     ventana_seleccion.title("Seleccionar Hábito")
@@ -120,6 +129,13 @@ def actualizar_habito():
     tk.Button(ventana_seleccion, 
               text="Completar", 
               command=seleccionar_habito, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
+    
+    # Boton para marcar todos los hábitos como completados
+    tk.Button(ventana_seleccion, 
+              text="Completar todos", 
+              command=complete_all, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
 
@@ -184,6 +200,20 @@ def eliminar_habito():
     tk.Button(ventana_seleccion, 
               text="Eliminar", 
               command=seleccionar_habito, 
+              bg="#E74C3C", 
+              fg="#ECF0F1").pack(pady=10)
+    
+    def delete_all():
+        global historial
+        historial[fecha] = {}
+        guardar_habitos(historial)
+        messagebox.showinfo("Eliminar todos", "Todos los hábitos han sido eliminados.")
+        ventana_progreso.destroy()
+
+    # Boton para eliminar todos los hábitos
+    tk.Button(ventana_seleccion, 
+              text="Eliminar todos", 
+              command=delete_all, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
 
@@ -292,37 +322,6 @@ def ver_progreso():
                 font=("Arial", 12, "bold"), 
                 bg="#2C3E50", 
                 fg="#3498DB").pack(pady=5)
-
-    def delete_all():
-        global historial
-        historial[fecha] = {}
-        guardar_habitos(historial)
-        messagebox.showinfo("Eliminar todos", "Todos los hábitos han sido eliminados.")
-        ventana_progreso.destroy()
-        ver_progreso()
-
-    def complete_all():
-        global historial
-        for habito in historial[fecha]:
-            historial[fecha][habito] = "Completado"
-        guardar_habitos(historial)
-        messagebox.showinfo("Completar todos", "Todos los hábitos han sido marcados como completados.")
-        ventana_progreso.destroy()
-        ver_progreso()
-
-    # Boton para eliminar todos los hábitos
-    tk.Button(ventana_progreso, 
-              text="Eliminar todos", 
-              command=delete_all, 
-              bg="#E74C3C", 
-              fg="#ECF0F1").pack(pady=10)
-
-    # Boton para marcar todos los hábitos como completados
-    tk.Button(ventana_progreso, 
-              text="Completar todos", 
-              command=complete_all, 
-              bg="#E74C3C", 
-              fg="#ECF0F1").pack(pady=10)
 
 # === SECCIÓN: GUI ===
 
