@@ -62,6 +62,7 @@ def actualizar_habito():
     def seleccionar_habito():
         global ventana_historial, ventana_progreso, ventana_seleccion
         valor = lista_habitos.get(tk.ACTIVE).strip()
+        
 
         if valor.lower() == "":
             #Si el usuario no introduce nada, devuelve mensaje de error
@@ -72,8 +73,8 @@ def actualizar_habito():
             messagebox.showerror("Error", f"No estas haciendo seguimiento del hábito {valor.capitalize()}")
 
         elif historial[fecha][valor.lower()] == "Completado":
-                #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
-                messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
+            #Si el hábito escrito ya tiene el valor "Completado" en nuestro diccionario, devuelve un mensaje de error
+            messagebox.showerror("Error", "Ese hábito ya esta marcado como completado")
 
         else:
             #Si el habito coincide con alguno del diccionario, cambio su valor a "Completado"
@@ -147,6 +148,10 @@ def eliminar_habito():
     global ventana_historial, ventana_progreso, ventana_seleccion
     #Funcion para eliminar un hábito del diccionario y así no hacerle seguimiento
 
+    if ventana_seleccion is not None:
+        ventana_seleccion.destroy()
+        ventana_seleccion = None
+    
     def seleccionar_habito():
         global ventana_historial, ventana_progreso, ventana_seleccion
         valor = lista_habitos.get(tk.ACTIVE).strip()
@@ -225,14 +230,18 @@ def ver_historial():
     global ventana_historial
     #Funcion para ver los hábitos registrados un día anterior
     
+    if ventana_historial is not None:
+        ventana_historial.destroy()
+        ventana_historial = None
+
     # VENTANA PARA HISTORIAL
-    ventana = tk.Toplevel()
-    ventana.title("Historial")
-    ventana.geometry("400x400")
-    ventana.configure(bg="#2C3E50")
+    ventana_historial = tk.Toplevel()
+    ventana_historial.title("Historial")
+    ventana_historial.geometry("400x400")
+    ventana_historial.configure(bg="#2C3E50")
 
     # LABEL PRINCIPAL TITULO
-    tk.Label(ventana, 
+    tk.Label(ventana_historial, 
             text=f"Historial", 
             font=("Arial", 16, "bold"), 
             fg="#ECF0F1", 
@@ -240,7 +249,7 @@ def ver_historial():
             ).pack(pady=15, padx=30) 
     
     # LABEL MESSAGE
-    tk.Label(ventana,
+    tk.Label(ventana_historial,
             text="Selecciona una fecha",
             font=("Arial", 12, "bold"),
             fg="#ECF0F1", 
@@ -248,7 +257,7 @@ def ver_historial():
             ).pack(padx=30)
     
     # CALENDARIO
-    cal = Calendar(ventana, selectmode="day")
+    cal = Calendar(ventana_historial, selectmode="day")
     cal.pack(pady=20, padx=10)
 
     
@@ -295,14 +304,19 @@ def ver_historial():
         except KeyError:
             # EN CASO DE ERROR, LANZAMOS MENSAJE 
             messagebox.showerror("Error","No tienes nada registrado este día")
+            ver_historial()
 
     # BOTON BUSCAR
-    tk.Button(ventana, text="Buscar", command=show_date).pack(pady=10)
+    tk.Button(ventana_historial, text="Buscar", command=show_date).pack(pady=10)
 
 def ver_progreso():
     global ventana_progreso
     #Funcion para ver el progreso de los hábitos del día actual
-    
+
+    if ventana_progreso is not None:
+        ventana_progreso.destroy()
+        ventana_progreso = None
+
     # VENTANA PARA PROGRESO
     ventana_progreso = tk.Toplevel()
     ventana_progreso.title("Progreso")

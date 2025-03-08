@@ -41,7 +41,9 @@ def leer_habitos():
         ultima_fecha = None
 
     #AÑADIR NUEVA KEY AL DICCIONARIO CON LOS VALORES DE LA ULTIMA FECHA REGISTRADA A "PENDIENTE"
-    if ultima_fecha:
+    if ultima_fecha == fecha:
+        pass
+    elif ultima_fecha != fecha and ultima_fecha is not None:
         habitos_pendientes = {habito: "Pendiente" for habito in datos[ultima_fecha]}
         datos[fecha] = habitos_pendientes
 
