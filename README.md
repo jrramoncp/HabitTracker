@@ -1,7 +1,7 @@
 # Easy Habit Tracker
 
 ## Descripción
-**Easy Habit Tracker** Easy Habit Tracker es una aplicación de escritorio desarrollada en Python con una interfaz basada en Tkinter, diseñada para ayudar a los usuarios a realizar un seguimiento de sus hábitos diarios de manera sencilla y efectiva. Con esta aplicación, puedes añadir nuevos hábitos, marcar su progreso, visualizar tu avance diario o por en fechas anteriores y eliminar aquellos que ya no desees rastrear.
+**Easy Habit Tracker** es una aplicación de escritorio desarrollada en Python con una interfaz basada en Tkinter, diseñada para ayudar a los usuarios a realizar un seguimiento de sus hábitos diarios de manera sencilla y efectiva. Con esta aplicación, puedes añadir nuevos hábitos, marcar su progreso, visualizar tu avance diario o por en fechas anteriores y eliminar aquellos que ya no desees rastrear.
 
 ---
 
@@ -60,10 +60,10 @@ El proyecto está compuesto por los siguientes archivos:
 
 ## Cómo usar
 1. Al iniciar el programa, se mostrará el menú principal.
-2. Escribe un hábito en el cuadro de texto.
-3. Haz clic en la acción que quieras llevar a cabo con ese hábito.
-4. Elige 'Ver Progreso' o 'Ver Historial' para ver tu progreso actual o pasado.
-5. Elige 'Salir' para cerrar la aplicación.
+2. Escribe un hábito en el cuadro de texto para añadirlo al seguimiento.
+3. Selecciona "Completar hábito" o "Eliminar hábito", para gestionar tus hábitos
+4. Elige 'Ver Progreso' o 'Ver Historial' para ver tu progreso actual o consultar una fecha anterior.
+5. Elige "Salir" para cerrar la aplicación.
 
 ---
 
