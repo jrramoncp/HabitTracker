@@ -101,6 +101,7 @@ def actualizar_habito():
             ver_progreso()
 
     def complete_all():
+        # FUNCIÓN PARA COMPLETAR TODOS LO HÁBITOS DE UNA SOLA VEZ
         global historial
         for habito in historial[fecha]:
             historial[fecha][habito] = "Completado"
@@ -112,7 +113,7 @@ def actualizar_habito():
     # VENTANA PARA SELECCIONAR HABITO
     ventana_seleccion = tk.Toplevel()
     ventana_seleccion.title("Seleccionar Hábito")
-    ventana_seleccion.geometry("400x400")
+    ventana_seleccion.geometry("400x450")
     ventana_seleccion.configure(bg="#2C3E50")
 
     # LABEL PRINCIPAL TITULO
@@ -137,12 +138,20 @@ def actualizar_habito():
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
     
-    # Boton para marcar todos los hábitos como completados
+    # BOTON PARA MARCAR TODOS COMO COMPLETADOS
     tk.Button(ventana_seleccion, 
               text="Completar todos", 
               command=complete_all, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
+    
+    # BOTON PARA SALIR
+    tk.Button(ventana_seleccion, 
+            text="Salir",
+            bg="#2E4053",
+            fg="#FF6F61",
+            command=lambda: ventana_seleccion.destroy()
+            ).pack(pady=5)
 
 def eliminar_habito():
     global ventana_historial, ventana_progreso, ventana_seleccion
@@ -187,7 +196,7 @@ def eliminar_habito():
     # VENTANA PARA SELECCIONAR HABITO
     ventana_seleccion = tk.Toplevel()
     ventana_seleccion.title("Seleccionar Hábito")
-    ventana_seleccion.geometry("400x400")
+    ventana_seleccion.geometry("400x450")
     ventana_seleccion.configure(bg="#2C3E50")
 
     # LABEL PRINCIPAL TITULO
@@ -225,6 +234,15 @@ def eliminar_habito():
               command=delete_all, 
               bg="#E74C3C", 
               fg="#ECF0F1").pack(pady=10)
+    
+    # BOTON PARA SALIR
+
+    tk.Button(ventana_seleccion, 
+        text="Salir",
+        bg="#2E4053",
+        fg="#FF6F61",
+        command=lambda: ventana_seleccion.destroy()
+        ).pack(pady=5)
 
 def ver_historial():
     global ventana_historial
@@ -307,7 +325,14 @@ def ver_historial():
             ver_historial()
 
     # BOTON BUSCAR
-    tk.Button(ventana_historial, text="Buscar", command=show_date).pack(pady=10)
+    tk.Button(ventana_historial, text="Buscar", command=show_date, bg="#E74C3C", fg="#ECF0F1").pack(pady=10)
+
+    tk.Button(ventana_historial, 
+        text="Salir",
+        bg="#2E4053",
+        fg="#FF6F61",
+        command=lambda: ventana_historial.destroy()
+        ).pack(pady=5)
 
 def ver_progreso():
     global ventana_progreso
@@ -322,6 +347,7 @@ def ver_progreso():
     ventana_progreso.title("Progreso")
     ventana_progreso.geometry("400x400")
     ventana_progreso.configure(bg="#2C3E50")
+    
 
     # LABEL PRINCIPAL TITULO
     tk.Label(ventana_progreso, 
@@ -340,6 +366,13 @@ def ver_progreso():
                 font=("Arial", 12, "bold"), 
                 bg="#2C3E50", 
                 fg="#3498DB").pack(pady=5)
+        
+    tk.Button(ventana_progreso, 
+    text="Salir",
+    bg="#2E4053",
+    fg="#FF6F61",
+    command=lambda: ventana_progreso.destroy()
+    ).pack(side="bottom", pady=40)
 
 # === SECCIÓN: GUI ===
 
