@@ -38,18 +38,16 @@ def anadir_habito():
         guardar_habitos(historial)
         habito.set("")  # Limpiar el campo de entrada
 
-        # Close the historial window if it is open
+        # Cierra la ventana de historial si esta abierta
         if ventana_historial is not None:
             ventana_historial.destroy()
             ventana_historial = None
 
-        # Close the progreso window if it is open
+        # Cierra ventana de progreso si esta abierta
         if ventana_progreso is not None:
             ventana_progreso.destroy()
             ventana_progreso = None
 
-        # Reopen the progreso window
-        ver_progreso()
 
 def actualizar_habito():
     global ventana_historial, ventana_progreso, ventana_seleccion
@@ -345,9 +343,9 @@ def ver_progreso():
     # VENTANA PARA PROGRESO
     ventana_progreso = tk.Toplevel()
     ventana_progreso.title("Progreso")
-    ventana_progreso.geometry("400x400")
     ventana_progreso.configure(bg="#2C3E50")
     
+
 
     # LABEL PRINCIPAL TITULO
     tk.Label(ventana_progreso, 
@@ -373,6 +371,8 @@ def ver_progreso():
     fg="#FF6F61",
     command=lambda: ventana_progreso.destroy()
     ).pack(side="bottom", pady=40)
+
+    ventana_progreso.update_idletasks()
 
 # === SECCIÓN: GUI ===
 
